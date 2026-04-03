@@ -22,19 +22,19 @@ html {
   color: var(--text);
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  /* Let the document scroll so native browser PTR works */
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
 }
 
 body {
-  overflow: hidden;
+  background: var(--bg);
 }
 
 /* ── App shell ─────────────────────────────────────────────────────────────── */
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
   background: var(--bg);
+  min-height: 100dvh;
   position: relative;
 }
 
@@ -56,12 +56,12 @@ body {
 
 /* ── Header ────────────────────────────────────────────────────────────────── */
 .app-header {
-  flex-shrink: 0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
   padding: 14px 20px 12px;
   padding-top: max(14px, env(safe-area-inset-top, 14px));
   background: rgba(5, 5, 5, 0.96);
   backdrop-filter: blur(12px);
-  position: relative;
   z-index: 10;
 }
 
@@ -89,16 +89,8 @@ body {
   margin-top: 3px;
 }
 
-/* ── Scrollable body ───────────────────────────────────────────────────────── */
+/* ── Body — document scrolls, header + nav are fixed ──────────────────────── */
 .app-body {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: auto;
+  padding-top: calc(56px + env(safe-area-inset-top, 0px));
   padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
 }
-
-.app-body::-webkit-scrollbar { width: 3px; }
-.app-body::-webkit-scrollbar-track { background: transparent; }
-.app-body::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 2px; }
