@@ -8,7 +8,6 @@ export const WORKOUT = [
   {
     day: 1,
     label: 'PUSH',
-    subtitle: 'Chest · Shoulders · Triceps',
     blocks: [
       {
         id: 'push-strength',
@@ -101,7 +100,6 @@ export const WORKOUT = [
   {
     day: 2,
     label: 'PULL',
-    subtitle: 'Back · Biceps · Rear Delts',
     blocks: [
       {
         id: 'pull-strength',
@@ -194,7 +192,6 @@ export const WORKOUT = [
   {
     day: 3,
     label: 'LEGS',
-    subtitle: 'Legs · Core',
     blocks: [
       {
         id: 'legs-strength',

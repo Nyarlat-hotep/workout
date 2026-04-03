@@ -1,13 +1,11 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import './App.css'
 import { WORKOUT } from './data/workout'
 import DayNav from './components/DayNav'
 import DayView from './components/DayView'
-import PullToRefresh from './components/PullToRefresh'
 
 export default function App() {
   const [selectedDay, setSelectedDay] = useState(0)
-  const scrollRef = useRef(null)
 
   return (
     <div className="app">
@@ -16,10 +14,8 @@ export default function App() {
         <div className="app-subtitle">// PROTOCOL ACTIVE //</div>
       </header>
 
-      <main className="app-body" ref={scrollRef}>
-        <PullToRefresh scrollRef={scrollRef}>
-          <DayView day={WORKOUT[selectedDay]} />
-        </PullToRefresh>
+      <main className="app-body">
+        <DayView day={WORKOUT[selectedDay]} />
       </main>
 
       <DayNav days={WORKOUT} selected={selectedDay} onSelect={setSelectedDay} />

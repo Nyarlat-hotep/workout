@@ -12,7 +12,6 @@ export default function DayNav({ days, selected, onSelect }) {
         >
           <span className="day-nav-num">DAY {day.day}</span>
           <span className="day-nav-label">{day.label}</span>
-          <span className="day-nav-sub">{day.subtitle}</span>
         </button>
       ))}
     </nav>
