@@ -1,0 +1,47 @@
+.block-section {
+  margin: 0 0 4px;
+}
+
+.block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px 8px;
+  border-left: 2px solid var(--accent);
+  margin: 16px 16px 8px;
+  background: linear-gradient(90deg, var(--accent-glow), transparent);
+}
+
+.block-header--mobility {
+  border-left-color: rgba(0, 212, 255, 0.45);
+}
+
+.block-name {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.block-header--mobility .block-name {
+  color: rgba(0, 212, 255, 0.6);
+}
+
+.block-duration {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+
+.block-exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 12px;
+}

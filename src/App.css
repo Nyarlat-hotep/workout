@@ -1,0 +1,104 @@
+/* ── CSS Variables ─────────────────────────────────────────────────────────── */
+:root {
+  --bg:            #050505;
+  --bg-surface:    #0d0d0f;
+  --bg-card:       #111116;
+  --accent:        #00d4ff;
+  --accent-dim:    rgba(0, 212, 255, 0.25);
+  --accent-glow:   rgba(0, 212, 255, 0.10);
+  --text:          rgba(220, 230, 240, 0.95);
+  --text-dim:      rgba(180, 195, 210, 0.65);
+  --text-muted:    rgba(120, 140, 160, 0.55);
+  --border:        rgba(0, 212, 255, 0.12);
+  --border-active: rgba(0, 212, 255, 0.7);
+  --font-head:     'Orbitron', monospace;
+  --font-mono:     monospace;
+  --nav-height:    62px;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* ── App shell ─────────────────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background: var(--bg);
+  position: relative;
+}
+
+/* Scanline overlay — very subtle CRT feel */
+.app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.025) 3px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.app-header {
+  flex-shrink: 0;
+  padding: 14px 20px 12px;
+  padding-top: max(14px, env(safe-area-inset-top, 14px));
+  background: rgba(5, 5, 5, 0.96);
+  backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 10;
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+}
+
+.app-title {
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(0, 212, 255, 0.45);
+}
+
+.app-subtitle {
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ── Scrollable body ───────────────────────────────────────────────────────── */
+.app-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
+}
+
+.app-body::-webkit-scrollbar { width: 3px; }
+.app-body::-webkit-scrollbar-track { background: transparent; }
+.app-body::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 2px; }
