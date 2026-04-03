@@ -8,7 +8,7 @@
   --accent-glow:   rgba(0, 212, 255, 0.10);
   --text:          rgba(220, 230, 240, 0.95);
   --text-dim:      rgba(180, 195, 210, 0.65);
-  --text-muted:    rgba(151, 173, 196, 0.85);
+  --text-muted:    rgba(151, 173, 196, 0.55);
   --border:        rgba(0, 212, 255, 0.12);
   --border-active: rgba(0, 212, 255, 0.7);
   --font-head:     'Orbitron', monospace;

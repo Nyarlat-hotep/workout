@@ -87,13 +87,6 @@
   line-height: 1;
 }
 
-.badge-label {
-  font-size: 0.55rem;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-
 /* ── Chevron ────────────────────────────────────────────────────────────────── */
 .exercise-chevron {
   flex-shrink: 0;

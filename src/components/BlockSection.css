@@ -16,7 +16,7 @@
 
 .block-name {
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: .65rem;
   letter-spacing: 3px;
   color: var(--accent);
   text-transform: uppercase;

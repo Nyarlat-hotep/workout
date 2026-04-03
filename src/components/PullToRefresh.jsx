@@ -77,7 +77,6 @@ export default function PullToRefresh({ scrollRef, children }) {
             </svg>
           </div>
         )}
-        {triggered && <span className="ptr-label">RELEASE</span>}
       </div>
 
       {/* Content shifts down during pull */}

@@ -19,7 +19,6 @@ export default function ExerciseCard({ exercise, isOpen, onToggle }) {
 
         <div className="exercise-badge">
           <span className="badge-sets">{setsReps}</span>
-          <span className="badge-label">SETS</span>
         </div>
 
         <span className="exercise-chevron" aria-hidden="true">

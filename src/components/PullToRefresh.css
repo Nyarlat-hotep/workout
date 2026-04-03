@@ -20,19 +20,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
-  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.5));
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  background: rgba(0, 212, 255, 0.06);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .ptr-indicator--ready .ptr-icon {
   color: #00ffaa;
-  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.6));
-}
-
-.ptr-label {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 3px;
-  color: #00ffaa;
-  text-shadow: 0 0 8px rgba(0, 255, 170, 0.5);
+  border-color: rgba(0, 255, 170, 0.6);
+  background: rgba(0, 255, 170, 0.08);
+  box-shadow: 0 0 14px rgba(0, 255, 170, 0.3);
 }
