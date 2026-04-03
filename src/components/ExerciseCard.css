@@ -38,7 +38,7 @@
 
 .exercise-name {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text);
   letter-spacing: 0.5px;
@@ -52,7 +52,7 @@
 }
 
 .exercise-notes {
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   margin-top: 3px;
   white-space: nowrap;
@@ -88,7 +88,7 @@
 }
 
 .badge-label {
-  font-size: 0.45rem;
+  font-size: 0.55rem;
   letter-spacing: 1.5px;
   color: var(--text-muted);
   margin-top: 2px;

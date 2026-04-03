@@ -33,9 +33,6 @@ export default function ExerciseCard({ exercise, isOpen, onToggle }) {
       <div className="exercise-body-wrap">
         <div className="exercise-body-inner">
           <div className="exercise-body">
-            {notes && (
-              <p className="exercise-notes-full">{notes}</p>
-            )}
 
             {youtubeId ? (
               <div className="exercise-video">
