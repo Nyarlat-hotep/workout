@@ -5,8 +5,9 @@ const THRESHOLD = 72
 const MAX_PULL  = 100
 
 export default function PullToRefresh({ scrollRef, children }) {
-  const [pullY, setPullY]         = useState(0)
-  const [triggered, setTriggered] = useState(false)
+  const [pullY, setPullY]           = useState(0)
+  const [triggered, setTriggered]   = useState(false)
+  const [showIndicator, setShowIndicator] = useState(false)
   const rootRef  = useRef(null)
   const startY   = useRef(null)
   const pulling  = useRef(false)
@@ -27,12 +28,14 @@ export default function PullToRefresh({ scrollRef, children }) {
     pullYRef.current = clamped
     setPullY(clamped)
     setTriggered(clamped >= THRESHOLD)
+    setShowIndicator(true)
   }, [])
 
   const onTouchEnd = useCallback(() => {
     if (!pulling.current) return
     pulling.current = false
     startY.current  = null
+    setShowIndicator(false)
     const wasTriggered = pullYRef.current >= THRESHOLD
     if (wasTriggered) {
       setPullY(THRESHOLD * 0.6)
@@ -58,8 +61,7 @@ export default function PullToRefresh({ scrollRef, children }) {
     }
   }, [onTouchStart, onTouchMove, onTouchEnd])
 
-  const progress  = Math.min(pullY / THRESHOLD, 1)
-  const isVisible = pullY > 2
+  const progress = Math.min(pullY / THRESHOLD, 1)
 
   return (
     <div className="ptr-root" ref={rootRef}>
@@ -69,7 +71,7 @@ export default function PullToRefresh({ scrollRef, children }) {
         style={{ height: `${pullY}px`, opacity: progress }}
         aria-hidden="true"
       >
-        {isVisible && (
+        {showIndicator && (
           <div className="ptr-icon" style={{ transform: `rotate(${progress * 180}deg)` }}>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M9 2v10M9 2L6 5M9 2l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
