@@ -1,0 +1,38 @@
+.ptr-root {
+  position: relative;
+  overflow: hidden;
+}
+
+.ptr-indicator {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.ptr-icon {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.5));
+}
+
+.ptr-indicator--ready .ptr-icon {
+  color: #00ffaa;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.6));
+}
+
+.ptr-label {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 3px;
+  color: #00ffaa;
+  text-shadow: 0 0 8px rgba(0, 255, 170, 0.5);
+}
