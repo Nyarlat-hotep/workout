@@ -5,28 +5,21 @@
       <stop offset="50%"  stop-color="#ff6200"/>
       <stop offset="100%" stop-color="#ff0066"/>
     </linearGradient>
-    <clipPath id="sc">
-      <circle cx="16" cy="18" r="13"/>
-    </clipPath>
+    <!-- Mask = circle shape with stripe bands cut out (transparent) -->
+    <mask id="m">
+      <circle cx="16" cy="16" r="16" fill="white"/>
+      <rect x="0" y="19.4" width="32" height="1.4" fill="black"/>
+      <rect x="0" y="22"   width="32" height="1.4" fill="black"/>
+      <rect x="0" y="24.6" width="32" height="1.4" fill="black"/>
+      <rect x="0" y="27.2" width="32" height="1.4" fill="black"/>
+      <rect x="0" y="29.8" width="32" height="1.4" fill="black"/>
+    </mask>
   </defs>
 
-  <!-- Background -->
-  <rect width="32" height="32" rx="5" fill="#04000e"/>
+  <!-- Magenta glow rings (behind sun) -->
+  <circle cx="16" cy="16" r="16" fill="none" stroke="#dd00ff" stroke-width="3" opacity="0.25"/>
+  <circle cx="16" cy="16" r="15" fill="none" stroke="#ff00cc" stroke-width="1.5" opacity="0.45"/>
 
-  <!-- Outer magenta glow rings -->
-  <circle cx="16" cy="18" r="15"   fill="none" stroke="#cc00ff" stroke-width="2.5" opacity="0.18"/>
-  <circle cx="16" cy="18" r="13.8" fill="none" stroke="#ff00cc" stroke-width="1.2" opacity="0.35"/>
-
-  <!-- Sun body -->
-  <circle cx="16" cy="18" r="13" fill="url(#sun)"/>
-
-  <!-- Horizontal stripes clipped to sun -->
-  <rect x="0" y="21.5" width="32" height="1.3" fill="#04000e" clip-path="url(#sc)"/>
-  <rect x="0" y="23.8" width="32" height="1.3" fill="#04000e" clip-path="url(#sc)"/>
-  <rect x="0" y="26.1" width="32" height="1.3" fill="#04000e" clip-path="url(#sc)"/>
-  <rect x="0" y="28.4" width="32" height="1.3" fill="#04000e" clip-path="url(#sc)"/>
-
-  <!-- Horizon line -->
-  <rect x="0" y="30" width="32" height="2" fill="#04000e"/>
-  <line x1="0" y1="30" x2="32" y2="30" stroke="#ff00aa" stroke-width="0.6" opacity="0.7"/>
+  <!-- Sun with stripes masked out -->
+  <rect width="32" height="32" fill="url(#sun)" mask="url(#m)"/>
 </svg>
