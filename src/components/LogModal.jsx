@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
+import DatePicker from './DatePicker'
 import './LogModal.css'
 
 function today() {
@@ -51,12 +52,7 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
         <div className="log-modal-body">
           <div className="log-field">
             <label className="log-label">Date</label>
-            <input
-              className="log-date"
-              type="date"
-              value={date}
-              onChange={e => setDate(e.target.value)}
-            />
+            <DatePicker value={date} onChange={setDate} />
           </div>
 
           <table className="log-table">
