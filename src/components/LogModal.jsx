@@ -33,6 +33,7 @@ function parseRepsConfig(repsStr) {
 }
 
 const THUMB_HALF = 32
+const THUMB_INSET = 6
 // How many pixels of drag = full range traversal. Higher = less sensitive.
 const DRAG_PIXELS_PER_RANGE = 280
 
@@ -101,7 +102,7 @@ function VerticalSlider({ value, min, max, step, onChange }) {
   return (
     <div className="vslider-track" ref={trackRef} onMouseDown={handleMouseDown}>
       <div className="vslider-fill" style={{ height: `${percent}%` }} />
-      <div className="vslider-thumb" style={{ bottom: `clamp(0px, calc(${percent}% - ${THUMB_HALF}px), calc(100% - ${THUMB_HALF * 2}px))` }} />
+      <div className="vslider-thumb" style={{ bottom: `clamp(${THUMB_INSET}px, calc(${percent}% - ${THUMB_HALF}px), calc(100% - ${THUMB_HALF * 2}px - ${THUMB_INSET}px))` }} />
     </div>
   )
 }
