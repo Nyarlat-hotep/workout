@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
 import './LogModal.css'
@@ -32,102 +33,32 @@ function parseRepsConfig(repsStr) {
   return { min: 1, max: 30, start: 10, unit: 'reps' }
 }
 
-const THUMB_SIZE = 64
-const THUMB_HALF = THUMB_SIZE / 2
-const THUMB_INSET = 6
-
-// ── Vertical slider — thumb tracks finger 1:1 relative to track height ──────
-function VerticalSlider({ value, min, max, step, onChange }) {
-  const trackRef = useRef()
-  const dragState = useRef(null)
-  const latest = useRef({ min, max, step, onChange, value })
-  latest.current = { min, max, step, onChange, value }
-
-  useEffect(() => {
-    const el = trackRef.current
-    if (!el) return
-
-    function clampStep(raw) {
-      const { min, max, step } = latest.current
-      const stepped = Math.round(raw / step) * step
-      return parseFloat(Math.max(min, Math.min(max, stepped)).toFixed(2))
-    }
-
-    const onTouchStart = (e) => {
-      const rect = el.getBoundingClientRect()
-      dragState.current = {
-        startY: e.touches[0].clientY,
-        startValue: latest.current.value,
-        // how many units per pixel, based on actual rendered track height
-        unitsPerPx: (latest.current.max - latest.current.min) / rect.height,
-      }
-    }
-    const onTouchMove = (e) => {
-      if (!dragState.current) return
-      e.preventDefault()
-      const { startY, startValue, unitsPerPx } = dragState.current
-      const deltaY = startY - e.touches[0].clientY
-      latest.current.onChange(clampStep(startValue + deltaY * unitsPerPx))
-    }
-    const onTouchEnd = () => { dragState.current = null }
-
-    el.addEventListener('touchstart', onTouchStart, { passive: true })
-    el.addEventListener('touchmove', onTouchMove, { passive: false })
-    el.addEventListener('touchend', onTouchEnd, { passive: true })
-    return () => {
-      el.removeEventListener('touchstart', onTouchStart)
-      el.removeEventListener('touchmove', onTouchMove)
-      el.removeEventListener('touchend', onTouchEnd)
-    }
-  }, [])
-
-  function handleMouseDown(e) {
-    const rect = trackRef.current.getBoundingClientRect()
-    const startY = e.clientY
-    const startValue = latest.current.value
-    const unitsPerPx = (latest.current.max - latest.current.min) / rect.height
-
-    function clampStep(raw) {
-      const { min, max, step } = latest.current
-      return parseFloat(Math.max(min, Math.min(max, Math.round(raw / step) * step)).toFixed(2))
-    }
-
-    const onMove = (e) => {
-      const deltaY = startY - e.clientY
-      latest.current.onChange(clampStep(startValue + deltaY * unitsPerPx))
-    }
-    const onUp = () => {
-      document.removeEventListener('mousemove', onMove)
-      document.removeEventListener('mouseup', onUp)
-    }
-    document.addEventListener('mousemove', onMove)
-    document.addEventListener('mouseup', onUp)
-  }
-
-  const percent = ((value - min) / (max - min)) * 100
-
+function GlassSlider({ value, min, max, step, onChange }) {
   return (
-    <div className="vslider-track" ref={trackRef} onMouseDown={handleMouseDown}>
-      <div className="vslider-fill" style={{ height: `${percent}%` }} />
-      <div
-        className="vslider-thumb"
-        style={{
-          bottom: `clamp(${THUMB_INSET}px, calc(${percent}% - ${THUMB_HALF}px), calc(100% - ${THUMB_SIZE}px - ${THUMB_INSET}px))`,
-        }}
-      />
-    </div>
+    <RadixSlider.Root
+      className="glass-slider-root"
+      orientation="vertical"
+      min={min}
+      max={max}
+      step={step}
+      value={[value]}
+      onValueChange={([v]) => onChange(v)}
+    >
+      <RadixSlider.Track className="glass-slider-track">
+        <RadixSlider.Range className="glass-slider-range" />
+      </RadixSlider.Track>
+      <RadixSlider.Thumb className="glass-slider-thumb" />
+    </RadixSlider.Root>
   )
 }
 
-// ── Set card ─────────────────────────────────────────────────────────────────
 function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
   return (
     <div className="log-set-card">
-      <div className="log-set-card-label">Set {setIndex + 1}</div>
       <div className="log-sliders">
         <div className="log-slider-col">
           <div className="log-slider-value">{formatReps(setData.reps)}</div>
-          <VerticalSlider
+          <GlassSlider
             value={setData.reps}
             min={repsConfig.min}
             max={repsConfig.max}
@@ -138,7 +69,7 @@ function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
         </div>
         <div className="log-slider-col">
           <div className="log-slider-value">{setData.weight} lbs</div>
-          <VerticalSlider
+          <GlassSlider
             value={setData.weight}
             min={0}
             max={200}
@@ -152,6 +83,27 @@ function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
   )
 }
 
+// ── Animated pill tab toggle ──────────────────────────────────────────────────
+function SetTabs({ count, activeIndex, onChange }) {
+  return (
+    <div className="set-tabs">
+      <div
+        className="set-tabs-pill"
+        style={{ transform: `translateX(calc(${activeIndex} * 100%))`, width: `${100 / count}%` }}
+      />
+      {Array.from({ length: count }, (_, i) => (
+        <button
+          key={i}
+          className={`set-tab-btn${activeIndex === i ? ' active' : ''}`}
+          onClick={() => onChange(i)}
+        >
+          {i + 1}
+        </button>
+      ))}
+    </div>
+  )
+}
+
 // ── Custom swipe carousel ─────────────────────────────────────────────────────
 function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps, onChange }) {
   const containerRef = useRef()
@@ -161,10 +113,7 @@ function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps
   const count = sets.length
 
   function onTouchStart(e) {
-    swipe.current = {
-      startX: e.touches[0].clientX,
-      startTime: Date.now(),
-    }
+    swipe.current = { startX: e.touches[0].clientX, startTime: Date.now() }
     setAnimating(false)
     setDragOffset(0)
   }
@@ -172,7 +121,6 @@ function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps
   function onTouchMove(e) {
     if (!swipe.current) return
     const dx = e.touches[0].clientX - swipe.current.startX
-    // rubber-band resistance at edges
     const atStart = activeIndex === 0 && dx > 0
     const atEnd = activeIndex === count - 1 && dx < 0
     setDragOffset(atStart || atEnd ? dx * 0.18 : dx)
@@ -180,9 +128,8 @@ function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps
 
   function onTouchEnd() {
     if (!swipe.current) return
-    const { startTime } = swipe.current
-    const elapsed = Date.now() - startTime
-    const velocity = dragOffset / elapsed // px/ms
+    const elapsed = Date.now() - swipe.current.startTime
+    const velocity = dragOffset / elapsed
     const width = containerRef.current?.clientWidth ?? 375
     const threshold = width * 0.28
 
@@ -281,15 +228,12 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
         <DatePicker value={date} onChange={setDate} />
       </div>
 
-      <div className="log-dots">
-        {sets.map((_, i) => (
-          <button
-            key={i}
-            className={`log-dot${activeSet === i ? ' active' : ''}`}
-            onClick={() => setActiveSet(i)}
-            aria-label={`Set ${i + 1}`}
-          />
-        ))}
+      <div className="log-tabs-row">
+        <SetTabs
+          count={sets.length}
+          activeIndex={activeSet}
+          onChange={setActiveSet}
+        />
       </div>
 
       <SetCarousel

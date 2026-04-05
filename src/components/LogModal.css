@@ -54,34 +54,57 @@
   padding: 12px 14px;
 }
 
-/* ── Set dots ────────────────────────────────────────────────────────────── */
-.log-dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 0 8px;
+/* ── Pill tab toggle ─────────────────────────────────────────────────────── */
+.log-tabs-row {
+  padding: 14px 24px;
   flex-shrink: 0;
 }
 
-.log-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--border);
+.set-tabs {
+  position: relative;
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 212, 255, 0.18);
+  border-radius: 999px;
+  padding: 4px;
+  backdrop-filter: blur(8px);
+}
+
+.set-tabs-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  border-radius: 999px;
+  background: rgba(0, 212, 255, 0.14);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.set-tab-btn {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  background: none;
   border: none;
+  padding: 10px 4px;
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
   cursor: pointer;
-  padding: 0;
-  transition: background 0.2s, transform 0.2s;
+  border-radius: 999px;
+  transition: color 0.25s;
   -webkit-tap-highlight-color: transparent;
 }
 
-.log-dot.active {
-  background: var(--accent);
-  transform: scale(1.3);
-  box-shadow: 0 0 6px rgba(0, 212, 255, 0.6);
+.set-tab-btn.active {
+  color: var(--accent);
 }
 
-/* ── Custom carousel ─────────────────────────────────────────────────────── */
+/* ── Carousel ────────────────────────────────────────────────────────────── */
 .log-carousel {
   flex: 1;
   overflow: hidden;
@@ -95,115 +118,140 @@
   will-change: transform;
 }
 
-/* ── Individual set card ─────────────────────────────────────────────────── */
+/* ── Set card ────────────────────────────────────────────────────────────── */
 .log-set-card {
   flex: 0 0 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 16px 8px;
+  justify-content: center;
+  padding: 16px 24px;
   min-height: 0;
 }
 
-.log-set-card-label {
-  font-family: var(--font-head);
-  font-size: 0.65rem;
-  letter-spacing: 3px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-  flex-shrink: 0;
-}
-
-/* ── Sliders ─────────────────────────────────────────────────────────────── */
+/* ── Slider columns ──────────────────────────────────────────────────────── */
 .log-sliders {
-  flex: 1;
   width: 100%;
   display: flex;
-  gap: 16px;
-  min-height: 0;
+  gap: 24px;
+  justify-content: center;
 }
 
 .log-slider-col {
   flex: 1;
+  max-width: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  min-height: 0;
+  gap: 14px;
 }
 
 .log-slider-value {
   font-family: var(--font-head);
   font-size: 1rem;
   color: var(--accent);
-  background: var(--bg-card);
-  border: 1px solid var(--accent-dim);
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   border-radius: 6px;
   padding: 7px 16px;
   letter-spacing: 2px;
-  flex-shrink: 0;
-  min-width: 90px;
-  text-align: center;
-  box-shadow: 0 0 8px rgba(0, 212, 255, 0.1);
-}
-
-/* ── Vertical slider track ───────────────────────────────────────────────── */
-.vslider-track {
-  flex: 1;
   width: 100%;
-  max-width: 80px;
-  position: relative;
-  background: var(--bg-card);
-  border: 2px solid var(--accent);
-  border-radius: 999px;
-  box-shadow:
-    0 0 20px rgba(0, 212, 255, 0.18),
-    inset 0 0 40px rgba(0, 0, 0, 0.5);
-  touch-action: none;
-  cursor: pointer;
-  min-height: 160px;
-  max-height: 46vh;
-  overflow: hidden;
-}
-
-.vslider-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 0 0 999px 999px;
-  background: linear-gradient(
-    to top,
-    rgba(0, 212, 255, 0.55),
-    rgba(0, 80, 100, 0.2) 60%,
-    transparent
-  );
-  pointer-events: none;
-}
-
-.vslider-thumb {
-  position: absolute;
-  left: 50%;
-  width: 64px;
-  height: 64px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle at 38% 38%, #0d2535, #000810);
-  border: 2.5px solid var(--accent);
-  box-shadow:
-    0 0 14px rgba(0, 212, 255, 0.8),
-    0 0 28px rgba(0, 212, 255, 0.3),
-    inset 0 0 8px rgba(0, 0, 0, 0.8);
-  pointer-events: none;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.08);
 }
 
 .log-slider-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.6rem;
   letter-spacing: 3px;
   color: var(--text-muted);
-  flex-shrink: 0;
+}
+
+/* ── Radix vertical slider — glassmorphism ───────────────────────────────── */
+.glass-slider-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  width: 100%;
+  touch-action: none;
+  user-select: none;
+}
+
+.glass-slider-track {
+  position: relative;
+  flex-grow: 1;
+  border-radius: 999px;
+  height: 100%;
+  width: 48px;
+
+  /* glassmorphism track */
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(0, 212, 255, 0.2);
+  box-shadow:
+    inset 0 0 24px rgba(0, 0, 0, 0.4),
+    0 0 16px rgba(0, 212, 255, 0.06);
+}
+
+.glass-slider-range {
+  position: absolute;
+  border-radius: 999px;
+  width: 100%;
+
+  /* glowing fill from bottom */
+  background: linear-gradient(
+    to top,
+    rgba(0, 212, 255, 0.5),
+    rgba(0, 212, 255, 0.15) 60%,
+    transparent
+  );
+}
+
+.glass-slider-thumb {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: grab;
+
+  /* glassmorphism thumb */
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 255, 255, 0.18),
+    rgba(0, 20, 30, 0.85)
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(0, 212, 255, 0.6);
+  box-shadow:
+    0 0 14px rgba(0, 212, 255, 0.55),
+    0 0 28px rgba(0, 212, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  transition: box-shadow 0.15s;
+}
+
+.glass-slider-thumb:hover {
+  box-shadow:
+    0 0 18px rgba(0, 212, 255, 0.8),
+    0 0 36px rgba(0, 212, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.glass-slider-thumb:active {
+  cursor: grabbing;
+}
+
+.glass-slider-thumb:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(0, 212, 255, 0.35),
+    0 0 18px rgba(0, 212, 255, 0.8);
 }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
