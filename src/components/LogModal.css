@@ -228,10 +228,10 @@
 /* The bubble — grows from dot at bottom to full pill */
 .glass-slider-range {
   position: absolute;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  width: calc(100% - 10px);
+  left: 5px !important;
+  right: 5px !important;
+  bottom: 5px !important;
+  width: calc(100% - 10px) !important;
   border-radius: 999px;
   min-height: 70px; /* never smaller than a circle (bubble width = 70px) */
 
