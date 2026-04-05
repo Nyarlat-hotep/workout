@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import './BlockSection.css'
 import ExerciseCard from './ExerciseCard'
-import VideoModal from './VideoModal'
 import LogModal from './LogModal'
 
-export default function BlockSection({ block, day }) {
-  const [videoExercise, setVideoExercise] = useState(null)
+export default function BlockSection({ block, day, onExerciseSaved }) {
   const [logExercise, setLogExercise] = useState(null)
 
   return (
@@ -18,21 +16,16 @@ export default function BlockSection({ block, day }) {
           <ExerciseCard
             key={ex.name}
             exercise={ex}
-            onWatch={() => setVideoExercise(ex)}
             onLog={() => setLogExercise(ex)}
           />
         ))}
       </div>
-
-      {videoExercise && (
-        <VideoModal exercise={videoExercise} onClose={() => setVideoExercise(null)} />
-      )}
       {logExercise && (
         <LogModal
           exercise={logExercise}
           day={day}
           onClose={() => setLogExercise(null)}
-          onSaved={() => {}}
+          onSaved={onExerciseSaved}
         />
       )}
     </section>

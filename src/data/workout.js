@@ -1,276 +1,432 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// WORKOUT DATA — 3-day push/pull/legs split
-// To fill in YouTube IDs: search the exercise name on YouTube, copy the 11-char
-// ID from the URL (youtube.com/watch?v=XXXXXXXXXXX) and paste it below.
-// ─────────────────────────────────────────────────────────────────────────────
-
 export const WORKOUT = [
   {
     day: 1,
     label: 'PUSH',
-    blocks: [
-      {
-        id: 'push-strength',
-        name: 'STRENGTH BLOCK',
-        type: 'strength',
-        exercises: [
+    variants: {
+      A: {
+        blocks: [
           {
-            name: 'Dumbbell Floor Press',
-            sets: 4, reps: '5',
-            notes: 'Heavy 40–50 lb · focus on chest squeeze at top',
-            youtubeId: 'UBmpZ7l5Nlk',
-            searchHint: 'dumbbell floor press form tutorial',
+            id: 'push-a-strength',
+            name: 'STRENGTH BLOCK',
+            type: 'strength',
+            exercises: [
+              {
+                name: 'Dumbbell Floor Press',
+                sets: 4, reps: '5',
+                notes: 'Heavy 40–50 lb · focus on chest squeeze at top',
+              },
+              {
+                name: 'Pike Push-Up',
+                sets: 3, reps: '6',
+                notes: '3 sec eccentric · hips high · elbows track back',
+              },
+            ],
           },
           {
-            name: 'Pike Push-Up',
-            sets: 3, reps: '6',
-            notes: '3 sec eccentric · hips high · elbows track back',
-            youtubeId: 'eG20L9cl81w',
-            searchHint: 'pike push up slow eccentric tutorial',
-          },
-        ],
-      },
-      {
-        id: 'push-hypertrophy',
-        name: 'HYPERTROPHY BLOCK',
-        type: 'hypertrophy',
-        exercises: [
-          {
-            name: 'Incline DB Press',
-            sets: 3, reps: '10–12',
-            notes: 'Bench at 30–45° · elbows 45° to torso',
-            youtubeId: '8fXfwG4ftaQ',
-            searchHint: 'incline dumbbell press form tutorial',
-          },
-          {
-            name: 'Lateral Raise',
-            sets: 3, reps: '15',
-            notes: 'Slight forward lean · lead with elbows · no shrug',
-            youtubeId: 'Kl3LEzQ5Zqs',
-            searchHint: 'dumbbell lateral raise form tutorial',
-          },
-          {
-            name: 'Dips',
-            sets: 3, reps: '12–15',
-            notes: 'Slight forward lean for chest bias · full lockout',
-            youtubeId: '4ua3MzaU0QU',
-            searchHint: 'dips form tutorial triceps chest',
+            id: 'push-a-hypertrophy',
+            name: 'HYPERTROPHY BLOCK',
+            type: 'hypertrophy',
+            exercises: [
+              {
+                name: 'Incline DB Press',
+                sets: 3, reps: '10–12',
+                notes: 'Feet propped on bench · elbows 45° to torso',
+              },
+              {
+                name: 'Lateral Raise',
+                sets: 3, reps: '15',
+                notes: 'Slight forward lean · lead with elbows · no shrug',
+              },
+              {
+                name: 'Dips',
+                sets: 3, reps: '12–15',
+                notes: 'Slight forward lean for chest bias · full lockout',
+              },
+              {
+                name: 'DB Overhead Press',
+                sets: 3, reps: '10',
+                notes: 'Standing · brace core · neutral wrists · full ROM',
+              },
+            ],
           },
           {
-            name: 'DB Overhead Press',
-            sets: 3, reps: '10',
-            notes: 'Standing · brace core · neutral wrists · full ROM',
-            youtubeId: 'k6tzKisR3NY',
-            searchHint: 'dumbbell overhead press standing form tutorial',
-          },
-        ],
-      },
-      {
-        id: 'push-mobility',
-        name: 'MOBILITY FINISHER',
-        type: 'mobility',
-        duration: '8 MIN',
-        exercises: [
-          {
-            name: 'Shoulder CARs',
-            sets: 2, reps: '5/side',
-            notes: 'Slow, full-range rotations · brace everything else',
-            youtubeId: 'QRmjqjGlIGI',
-            searchHint: 'shoulder CARs controlled articular rotations',
-          },
-          {
-            name: 'Wall Slide',
-            sets: 3, reps: '10',
-            notes: 'Back flat against wall · arms slide overhead',
-            youtubeId: 'i_0zLUcE-zk',
-            searchHint: 'wall slide shoulder mobility exercise',
-          },
-          {
-            name: 'Doorway Pec Stretch',
-            sets: 2, reps: '45s',
-            notes: 'Elbow at 90° · step through slowly · no pain',
-            youtubeId: 'O8rJw_TmC1Y',
-            searchHint: 'doorway pec chest stretch how to',
+            id: 'push-a-mobility',
+            name: 'MOBILITY FINISHER',
+            type: 'mobility',
+            exercises: [
+              {
+                name: 'Shoulder CARs',
+                sets: 2, reps: '5/side',
+                notes: 'Slow full-range rotations · brace everything else',
+              },
+              {
+                name: 'Wall Slide',
+                sets: 3, reps: '10',
+                notes: 'Back flat against wall · arms slide overhead',
+              },
+              {
+                name: 'Doorway Pec Stretch',
+                sets: 2, reps: '45s',
+                notes: 'Elbow at 90° · step through slowly · no pain',
+              },
+            ],
           },
         ],
       },
-    ],
+      B: {
+        blocks: [
+          {
+            id: 'push-b-strength',
+            name: 'STRENGTH BLOCK',
+            type: 'strength',
+            exercises: [
+              {
+                name: 'Weighted Dips',
+                sets: 4, reps: '5',
+                notes: 'DB between feet · slight forward lean · full depth',
+              },
+              {
+                name: 'DB Push Press',
+                sets: 3, reps: '5',
+                notes: 'Slight dip then drive overhead · lock out at top',
+              },
+            ],
+          },
+          {
+            id: 'push-b-hypertrophy',
+            name: 'HYPERTROPHY BLOCK',
+            type: 'hypertrophy',
+            exercises: [
+              {
+                name: 'DB Chest Fly',
+                sets: 3, reps: '12',
+                notes: 'Lying on floor · slight bend in elbows · wide arc',
+              },
+              {
+                name: 'DB Front Raise',
+                sets: 3, reps: '12',
+                notes: 'Alternating · thumb up · stop at shoulder height',
+              },
+              {
+                name: 'Close-Grip Push-Up',
+                sets: 3, reps: '15',
+                notes: 'Hands under chest · elbows stay tight to ribs',
+              },
+              {
+                name: 'DB Skull Crusher',
+                sets: 3, reps: '12',
+                notes: 'Lying on floor · lower to temples · elbows fixed',
+              },
+            ],
+          },
+          {
+            id: 'push-b-mobility',
+            name: 'MOBILITY FINISHER',
+            type: 'mobility',
+            exercises: [
+              {
+                name: 'Shoulder CARs',
+                sets: 2, reps: '5/side',
+                notes: 'Slow full-range rotations · brace everything else',
+              },
+              {
+                name: 'Chest-to-Wall Stretch',
+                sets: 2, reps: '45s',
+                notes: 'Arm at 90° on wall · rotate chest away · breathe',
+              },
+              {
+                name: 'Wrist Flexor Stretch',
+                sets: 2, reps: '30s/side',
+                notes: 'Arm extended · pull fingers back gently · hold',
+              },
+            ],
+          },
+        ],
+      },
+    },
   },
 
   {
     day: 2,
     label: 'PULL',
-    blocks: [
-      {
-        id: 'pull-strength',
-        name: 'STRENGTH BLOCK',
-        type: 'strength',
-        exercises: [
+    variants: {
+      A: {
+        blocks: [
           {
-            name: 'Weighted Pull-Up',
-            sets: 4, reps: '5',
-            notes: 'DB between feet or loaded pack · dead-hang start',
-            youtubeId: 'eDP_OOhMTZ4',
-            searchHint: 'weighted pull up form tutorial',
+            id: 'pull-a-strength',
+            name: 'STRENGTH BLOCK',
+            type: 'strength',
+            exercises: [
+              {
+                name: 'Weighted Pull-Up',
+                sets: 4, reps: '5',
+                notes: 'DB between feet or loaded pack · dead-hang start',
+              },
+              {
+                name: 'Chest-to-Bar Pull-Up',
+                sets: 3, reps: 'max',
+                notes: 'Pull until sternum touches bar · controlled descent',
+              },
+            ],
           },
           {
-            name: 'Chest-to-Bar Pull-Up',
-            sets: 3, reps: 'max',
-            notes: 'Pull until sternum touches bar · controlled descent',
-            youtubeId: 'l9LWhqBTENI',
-            searchHint: 'chest to bar pull up tutorial calisthenics',
-          },
-        ],
-      },
-      {
-        id: 'pull-hypertrophy',
-        name: 'HYPERTROPHY BLOCK',
-        type: 'hypertrophy',
-        exercises: [
-          {
-            name: 'Single-Arm DB Row',
-            sets: 3, reps: '12/side',
-            notes: 'Brace on bench · elbow past torso · squeeze at top',
-            youtubeId: 'yHqqGd0tXcw',
-            searchHint: 'single arm dumbbell row form tutorial',
-          },
-          {
-            name: 'DB High Pull',
-            sets: 3, reps: '15',
-            notes: 'Face pull substitute · elbows high and wide · control',
-            youtubeId: '6V--L2_6mXY',
-            searchHint: 'dumbbell high pull face pull substitute tutorial',
-          },
-          {
-            name: 'Hammer Curl',
-            sets: 3, reps: '12',
-            notes: 'Neutral grip · no swing · full extension at bottom',
-            youtubeId: 'VuEclXR7sZY',
-            searchHint: 'hammer curl form tutorial dumbbell',
+            id: 'pull-a-hypertrophy',
+            name: 'HYPERTROPHY BLOCK',
+            type: 'hypertrophy',
+            exercises: [
+              {
+                name: 'Single-Arm DB Row',
+                sets: 3, reps: '12/side',
+                notes: 'Brace on bench · elbow past torso · squeeze at top',
+              },
+              {
+                name: 'DB High Pull',
+                sets: 3, reps: '15',
+                notes: 'Elbows high and wide · explosive pull · control down',
+              },
+              {
+                name: 'Hammer Curl',
+                sets: 3, reps: '12',
+                notes: 'Neutral grip · no swing · full extension at bottom',
+              },
+              {
+                name: 'DB Curl',
+                sets: 3, reps: '10',
+                notes: 'Supinate at top · slow eccentric · don\'t swing',
+              },
+            ],
           },
           {
-            name: 'DB Curl',
-            sets: 3, reps: '10',
-            notes: 'Supinate at top · slow eccentric · don\'t swing',
-            youtubeId: 'MKWBV29S6c0',
-            searchHint: 'dumbbell bicep curl supination form tutorial',
-          },
-        ],
-      },
-      {
-        id: 'pull-mobility',
-        name: 'MOBILITY FINISHER',
-        type: 'mobility',
-        duration: '8 MIN',
-        exercises: [
-          {
-            name: 'Thoracic Extension over Bench',
-            sets: 2, reps: '60s',
-            notes: 'Mid-back on bench edge · arms behind head · relax',
-            youtubeId: 'dOgHzAZOx0o',
-            searchHint: 'thoracic extension over bench mobility',
-          },
-          {
-            name: 'Thread the Needle',
-            sets: 2, reps: '8/side',
-            notes: 'On all-fours · reach under and rotate fully',
-            youtubeId: 'h6_v-dZGLjY',
-            searchHint: 'thread the needle thoracic rotation exercise',
-          },
-          {
-            name: 'Dead Hang',
-            sets: 3, reps: '30–45s',
-            notes: 'Full passive hang · breathe · let shoulders open',
-            youtubeId: '9eY15prKcUY',
-            searchHint: 'dead hang shoulder decompression how to',
+            id: 'pull-a-mobility',
+            name: 'MOBILITY FINISHER',
+            type: 'mobility',
+            exercises: [
+              {
+                name: 'Thoracic Extension over Bench',
+                sets: 2, reps: '60s',
+                notes: 'Mid-back on bench edge · arms behind head · relax',
+              },
+              {
+                name: 'Thread the Needle',
+                sets: 2, reps: '8/side',
+                notes: 'On all-fours · reach under and rotate fully',
+              },
+              {
+                name: 'Dead Hang',
+                sets: 3, reps: '30–45s',
+                notes: 'Full passive hang · breathe · let shoulders open',
+              },
+            ],
           },
         ],
       },
-    ],
+      B: {
+        blocks: [
+          {
+            id: 'pull-b-strength',
+            name: 'STRENGTH BLOCK',
+            type: 'strength',
+            exercises: [
+              {
+                name: 'Weighted Chin-Up',
+                sets: 4, reps: '5',
+                notes: 'DB between feet · supinated grip · full ROM',
+              },
+              {
+                name: 'Archer Pull-Up',
+                sets: 3, reps: 'max',
+                notes: 'One arm pulls · other arm guides · alternate sides',
+              },
+            ],
+          },
+          {
+            id: 'pull-b-hypertrophy',
+            name: 'HYPERTROPHY BLOCK',
+            type: 'hypertrophy',
+            exercises: [
+              {
+                name: 'Bent-Over DB Row',
+                sets: 3, reps: '12',
+                notes: 'Hinge at hips · chest parallel to floor · row both',
+              },
+              {
+                name: 'DB Rear Delt Fly',
+                sets: 3, reps: '15',
+                notes: 'Face down on bench · slight bend in elbows · squeeze',
+              },
+              {
+                name: 'Zottman Curl',
+                sets: 3, reps: '12',
+                notes: 'Curl up supinated · rotate at top · lower pronated',
+              },
+              {
+                name: 'Spider Curl',
+                sets: 3, reps: '10',
+                notes: 'Face down on bench · arms hang · curl strict · no swing',
+              },
+            ],
+          },
+          {
+            id: 'pull-b-mobility',
+            name: 'MOBILITY FINISHER',
+            type: 'mobility',
+            exercises: [
+              {
+                name: 'Thoracic Extension over Bench',
+                sets: 2, reps: '60s',
+                notes: 'Mid-back on bench edge · arms behind head · relax',
+              },
+              {
+                name: 'Cat-Cow',
+                sets: 2, reps: '10',
+                notes: 'On all-fours · slow inhale arch · exhale round · breathe',
+              },
+              {
+                name: 'Dead Hang',
+                sets: 3, reps: '30–45s',
+                notes: 'Full passive hang · breathe · let shoulders open',
+              },
+            ],
+          },
+        ],
+      },
+    },
   },
 
   {
     day: 3,
     label: 'LEGS',
-    blocks: [
-      {
-        id: 'legs-strength',
-        name: 'STRENGTH BLOCK',
-        type: 'strength',
-        exercises: [
+    variants: {
+      A: {
+        blocks: [
           {
-            name: 'Bulgarian Split Squat',
-            sets: 4, reps: '6/side',
-            notes: 'Heavy DBs · rear foot elevated · torso upright',
-            youtubeId: 'or1frhkjBDc',
-            searchHint: 'bulgarian split squat dumbbell form tutorial',
+            id: 'legs-a-strength',
+            name: 'STRENGTH BLOCK',
+            type: 'strength',
+            exercises: [
+              {
+                name: 'Bulgarian Split Squat',
+                sets: 4, reps: '6/side',
+                notes: 'Heavy DBs · rear foot on bench · torso upright',
+              },
+              {
+                name: 'Romanian Deadlift',
+                sets: 4, reps: '8',
+                notes: '45–50 lb DBs · hinge at hips · feel hamstring stretch',
+              },
+            ],
           },
           {
-            name: 'Romanian Deadlift',
-            sets: 4, reps: '8',
-            notes: '45–50 lb DBs · hinge at hips · feel hamstring stretch',
-            youtubeId: 'Wou9zVQrAfs',
-            searchHint: 'dumbbell romanian deadlift RDL form tutorial',
-          },
-        ],
-      },
-      {
-        id: 'legs-hypertrophy',
-        name: 'HYPERTROPHY BLOCK',
-        type: 'hypertrophy',
-        exercises: [
-          {
-            name: 'DB Goblet Squat',
-            sets: 3, reps: '15',
-            notes: 'DB at chest · elbows track knees · full depth',
-            youtubeId: 'lRYBbchqxtI',
-            searchHint: 'dumbbell goblet squat form tutorial',
+            id: 'legs-a-hypertrophy',
+            name: 'HYPERTROPHY BLOCK',
+            type: 'hypertrophy',
+            exercises: [
+              {
+                name: 'DB Goblet Squat',
+                sets: 3, reps: '15',
+                notes: 'DB at chest · elbows track knees · full depth',
+              },
+              {
+                name: 'Hip Thrust on Bench',
+                sets: 3, reps: '15',
+                notes: 'DB on hips · upper back on bench · full extension',
+              },
+            ],
           },
           {
-            name: 'Hip Thrust on Bench',
-            sets: 3, reps: '15',
-            notes: 'DB on hips · upper back on bench · full hip extension',
-            youtubeId: 'wYT_Ru0yGD0',
-            searchHint: 'dumbbell hip thrust bench form tutorial',
-          },
-        ],
-      },
-      {
-        id: 'legs-core',
-        name: 'CORE + MOBILITY',
-        type: 'mobility',
-        duration: '10 MIN',
-        exercises: [
-          {
-            name: 'Dead Bug',
-            sets: 3, reps: '8/side',
-            notes: 'Low back glued to floor · slow · full extension',
-            youtubeId: 'DqLL45uk2Tk',
-            searchHint: 'dead bug core exercise tutorial',
-          },
-          {
-            name: 'Copenhagen Plank',
-            sets: 3, reps: '20–30s/side',
-            notes: 'Foot on bench · hip stays level · don\'t sag',
-            youtubeId: 'SPcgUTrxaKg',
-            searchHint: 'copenhagen plank tutorial how to',
-          },
-          {
-            name: '90/90 Hip Stretch',
-            sets: 2, reps: '60s/side',
-            notes: 'Both knees at 90° · sit tall · feel outer hip',
-            youtubeId: 'FM7-7-a0FLg',
-            searchHint: '90 90 hip stretch tutorial mobility',
-          },
-          {
-            name: 'Deep Squat Hold',
-            sets: 2, reps: '45s',
-            notes: 'Heels flat if possible · hold something for balance',
-            youtubeId: 'LPa3LKlQ7eU',
-            searchHint: 'deep squat hold mobility tutorial',
+            id: 'legs-a-core',
+            name: 'CORE + MOBILITY',
+            type: 'mobility',
+            exercises: [
+              {
+                name: 'Dead Bug',
+                sets: 3, reps: '8/side',
+                notes: 'Low back glued to floor · slow · full extension',
+              },
+              {
+                name: 'Copenhagen Plank',
+                sets: 3, reps: '20–30s/side',
+                notes: 'Foot on bench · hip stays level · don\'t sag',
+              },
+              {
+                name: '90/90 Hip Stretch',
+                sets: 2, reps: '60s/side',
+                notes: 'Both knees at 90° · sit tall · feel outer hip',
+              },
+              {
+                name: 'Deep Squat Hold',
+                sets: 2, reps: '45s',
+                notes: 'Heels flat if possible · hold something for balance',
+              },
+            ],
           },
         ],
       },
-    ],
+      B: {
+        blocks: [
+          {
+            id: 'legs-b-strength',
+            name: 'STRENGTH BLOCK',
+            type: 'strength',
+            exercises: [
+              {
+                name: 'DB Step-Up',
+                sets: 4, reps: '6/side',
+                notes: 'Heavy DBs · step onto bench · drive through heel',
+              },
+              {
+                name: 'Single-Leg RDL',
+                sets: 4, reps: '6/side',
+                notes: 'DB in opposite hand · hinge slow · feel hamstring',
+              },
+            ],
+          },
+          {
+            id: 'legs-b-hypertrophy',
+            name: 'HYPERTROPHY BLOCK',
+            type: 'hypertrophy',
+            exercises: [
+              {
+                name: 'DB Sumo Squat',
+                sets: 3, reps: '15',
+                notes: 'Wide stance · toes out · DB hanging between legs',
+              },
+              {
+                name: 'DB Glute Bridge',
+                sets: 3, reps: '15',
+                notes: 'Shoulders on bench · DB on hips · squeeze at top',
+              },
+            ],
+          },
+          {
+            id: 'legs-b-core',
+            name: 'CORE + MOBILITY',
+            type: 'mobility',
+            exercises: [
+              {
+                name: 'Hollow Body Hold',
+                sets: 3, reps: '20–30s',
+                notes: 'Arms overhead · low back pressed down · legs low',
+              },
+              {
+                name: 'Side Plank',
+                sets: 3, reps: '30s/side',
+                notes: 'Body straight · hip up · don\'t rotate',
+              },
+              {
+                name: 'Hip Flexor Stretch',
+                sets: 2, reps: '60s/side',
+                notes: 'Lunge position · back knee down · tuck pelvis',
+              },
+              {
+                name: 'Cossack Squat',
+                sets: 2, reps: '8/side',
+                notes: 'Wide stance · shift side to side · heel stays flat',
+              },
+            ],
+          },
+        ],
+      },
+    },
   },
 ]
