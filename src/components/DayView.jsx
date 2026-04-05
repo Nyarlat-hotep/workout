@@ -4,7 +4,7 @@ export default function DayView({ day }) {
   return (
     <div style={{ paddingTop: '8px' }}>
       {day.blocks.map(block => (
-        <BlockSection key={block.id} block={block} />
+        <BlockSection key={block.id} block={block} day={day} />
       ))}
     </div>
   )

@@ -1,30 +1,40 @@
 import { useState } from 'react'
 import './BlockSection.css'
 import ExerciseCard from './ExerciseCard'
+import VideoModal from './VideoModal'
+import LogModal from './LogModal'
 
-export default function BlockSection({ block }) {
-  const [openIdx, setOpenIdx] = useState(null)
-
-  function handleToggle(i) {
-    setOpenIdx(prev => prev === i ? null : i)
-  }
+export default function BlockSection({ block, day }) {
+  const [videoExercise, setVideoExercise] = useState(null)
+  const [logExercise, setLogExercise] = useState(null)
 
   return (
     <section className="block-section">
       <div className={`block-header${block.type === 'mobility' ? ' block-header--mobility' : ''}`}>
         <span className="block-name">{block.name}</span>
-        {block.duration && <span className="block-duration">{block.duration}</span>}
       </div>
       <div className="block-exercises">
-        {block.exercises.map((ex, i) => (
+        {block.exercises.map(ex => (
           <ExerciseCard
             key={ex.name}
             exercise={ex}
-            isOpen={openIdx === i}
-            onToggle={() => handleToggle(i)}
+            onWatch={() => setVideoExercise(ex)}
+            onLog={() => setLogExercise(ex)}
           />
         ))}
       </div>
+
+      {videoExercise && (
+        <VideoModal exercise={videoExercise} onClose={() => setVideoExercise(null)} />
+      )}
+      {logExercise && (
+        <LogModal
+          exercise={logExercise}
+          day={day}
+          onClose={() => setLogExercise(null)}
+          onSaved={() => {}}
+        />
+      )}
     </section>
   )
 }

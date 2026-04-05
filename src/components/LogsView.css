@@ -1,0 +1,192 @@
+.logs-view {
+  padding: 12px 16px;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
+.logs-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.logs-filter-btn,
+.logs-sort-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logs-filter-btn.active,
+.logs-filter-btn:hover,
+.logs-sort-btn:hover {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* ── Filter panel ─────────────────────────────────────────────────────────── */
+.logs-filters {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logs-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.logs-filter-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.logs-filter-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-pill.active,
+.filter-pill:hover {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.logs-date-input {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 5px 8px;
+  color-scheme: dark;
+}
+.logs-date-input:focus {
+  outline: none;
+  border-color: var(--accent-dim);
+}
+
+.logs-clear-date {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  transition: color 0.15s;
+}
+.logs-clear-date:hover { color: var(--accent); }
+
+/* ── Session cards ─────────────────────────────────────────────────────────── */
+.logs-empty {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px 0;
+}
+
+.log-session {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.log-session-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 212, 255, 0.03);
+}
+
+.log-session-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.log-session-day {
+  font-family: var(--font-head);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+
+.log-exercise-group {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.05);
+}
+.log-exercise-group:last-child { border-bottom: none; }
+
+.log-exercise-name {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.log-sets-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.log-sets-table th {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 0 6px 6px;
+}
+
+.log-sets-table td {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 4px 6px;
+}
+
+.log-sets-table .log-set-num {
+  color: var(--accent);
+  width: 24px;
+}
