@@ -7,8 +7,8 @@
   background: var(--bg-surface);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 7px 10px;
-  font-size: 0.8rem;
+  padding: 12px 14px;
+  font-size: 0.95rem;
   font-family: var(--font-mono);
   border-radius: 4px;
   outline: none;

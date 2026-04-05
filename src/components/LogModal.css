@@ -72,17 +72,16 @@
 
 .log-field {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 6px;
   margin-bottom: 16px;
 }
 
 .log-label {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   letter-spacing: 2px;
   color: var(--text-muted);
-  flex-shrink: 0;
 }
 
 .log-table {
