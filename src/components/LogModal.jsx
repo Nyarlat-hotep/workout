@@ -32,14 +32,14 @@ function parseRepsConfig(repsStr) {
   return { min: 1, max: 30, start: 10, unit: 'reps' }
 }
 
-const THUMB_HALF = 32
+const THUMB_SIZE = 64
+const THUMB_HALF = THUMB_SIZE / 2
 const THUMB_INSET = 6
-// How many pixels of drag = full range traversal. Higher = less sensitive.
-const DRAG_PIXELS_PER_RANGE = 280
 
+// ── Vertical slider — thumb tracks finger 1:1 relative to track height ──────
 function VerticalSlider({ value, min, max, step, onChange }) {
   const trackRef = useRef()
-  const dragState = useRef(null) // { startY, startValue }
+  const dragState = useRef(null)
   const latest = useRef({ min, max, step, onChange, value })
   latest.current = { min, max, step, onChange, value }
 
@@ -47,22 +47,27 @@ function VerticalSlider({ value, min, max, step, onChange }) {
     const el = trackRef.current
     if (!el) return
 
-    function applyDelta(currentY) {
-      const { min, max, step, startValue } = { ...latest.current, ...dragState.current }
-      const delta = dragState.current.startY - currentY
-      const rawChange = (delta / DRAG_PIXELS_PER_RANGE) * (max - min)
-      const raw = startValue + rawChange
+    function clampStep(raw) {
+      const { min, max, step } = latest.current
       const stepped = Math.round(raw / step) * step
       return parseFloat(Math.max(min, Math.min(max, stepped)).toFixed(2))
     }
 
     const onTouchStart = (e) => {
-      dragState.current = { startY: e.touches[0].clientY, startValue: latest.current.value }
+      const rect = el.getBoundingClientRect()
+      dragState.current = {
+        startY: e.touches[0].clientY,
+        startValue: latest.current.value,
+        // how many units per pixel, based on actual rendered track height
+        unitsPerPx: (latest.current.max - latest.current.min) / rect.height,
+      }
     }
     const onTouchMove = (e) => {
       if (!dragState.current) return
       e.preventDefault()
-      latest.current.onChange(applyDelta(e.touches[0].clientY))
+      const { startY, startValue, unitsPerPx } = dragState.current
+      const deltaY = startY - e.touches[0].clientY
+      latest.current.onChange(clampStep(startValue + deltaY * unitsPerPx))
     }
     const onTouchEnd = () => { dragState.current = null }
 
@@ -77,18 +82,20 @@ function VerticalSlider({ value, min, max, step, onChange }) {
   }, [])
 
   function handleMouseDown(e) {
+    const rect = trackRef.current.getBoundingClientRect()
     const startY = e.clientY
     const startValue = latest.current.value
-    function applyDelta(currentY) {
+    const unitsPerPx = (latest.current.max - latest.current.min) / rect.height
+
+    function clampStep(raw) {
       const { min, max, step } = latest.current
-      const delta = startY - currentY
-      const rawChange = (delta / DRAG_PIXELS_PER_RANGE) * (max - min)
-      const raw = startValue + rawChange
-      const stepped = Math.round(raw / step) * step
-      return parseFloat(Math.max(min, Math.min(max, stepped)).toFixed(2))
+      return parseFloat(Math.max(min, Math.min(max, Math.round(raw / step) * step)).toFixed(2))
     }
-    latest.current.onChange(applyDelta(e.clientY))
-    const onMove = (e) => latest.current.onChange(applyDelta(e.clientY))
+
+    const onMove = (e) => {
+      const deltaY = startY - e.clientY
+      latest.current.onChange(clampStep(startValue + deltaY * unitsPerPx))
+    }
     const onUp = () => {
       document.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseup', onUp)
@@ -102,11 +109,17 @@ function VerticalSlider({ value, min, max, step, onChange }) {
   return (
     <div className="vslider-track" ref={trackRef} onMouseDown={handleMouseDown}>
       <div className="vslider-fill" style={{ height: `${percent}%` }} />
-      <div className="vslider-thumb" style={{ bottom: `clamp(${THUMB_INSET}px, calc(${percent}% - ${THUMB_HALF}px), calc(100% - ${THUMB_HALF * 2}px - ${THUMB_INSET}px))` }} />
+      <div
+        className="vslider-thumb"
+        style={{
+          bottom: `clamp(${THUMB_INSET}px, calc(${percent}% - ${THUMB_HALF}px), calc(100% - ${THUMB_SIZE}px - ${THUMB_INSET}px))`,
+        }}
+      />
     </div>
   )
 }
 
+// ── Set card ─────────────────────────────────────────────────────────────────
 function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
   return (
     <div className="log-set-card">
@@ -139,9 +152,89 @@ function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
   )
 }
 
+// ── Custom swipe carousel ─────────────────────────────────────────────────────
+function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps, onChange }) {
+  const containerRef = useRef()
+  const swipe = useRef(null)
+  const [dragOffset, setDragOffset] = useState(0)
+  const [animating, setAnimating] = useState(false)
+  const count = sets.length
+
+  function onTouchStart(e) {
+    swipe.current = {
+      startX: e.touches[0].clientX,
+      startTime: Date.now(),
+    }
+    setAnimating(false)
+    setDragOffset(0)
+  }
+
+  function onTouchMove(e) {
+    if (!swipe.current) return
+    const dx = e.touches[0].clientX - swipe.current.startX
+    // rubber-band resistance at edges
+    const atStart = activeIndex === 0 && dx > 0
+    const atEnd = activeIndex === count - 1 && dx < 0
+    setDragOffset(atStart || atEnd ? dx * 0.18 : dx)
+  }
+
+  function onTouchEnd() {
+    if (!swipe.current) return
+    const { startTime } = swipe.current
+    const elapsed = Date.now() - startTime
+    const velocity = dragOffset / elapsed // px/ms
+    const width = containerRef.current?.clientWidth ?? 375
+    const threshold = width * 0.28
+
+    let next = activeIndex
+    if (dragOffset < -threshold || velocity < -0.4) next = Math.min(count - 1, activeIndex + 1)
+    else if (dragOffset > threshold || velocity > 0.4) next = Math.max(0, activeIndex - 1)
+
+    swipe.current = null
+    setDragOffset(0)
+    setAnimating(true)
+    onActiveChange(next)
+  }
+
+  const width = containerRef.current?.clientWidth ?? 0
+  const baseTranslate = -activeIndex * 100
+  const dragPercent = width ? (dragOffset / width) * 100 : 0
+  const translateX = baseTranslate + dragPercent
+
+  return (
+    <div
+      ref={containerRef}
+      className="log-carousel"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      <div
+        className="log-carousel-track"
+        style={{
+          transform: `translateX(${translateX}%)`,
+          transition: animating ? 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+        }}
+        onTransitionEnd={() => setAnimating(false)}
+      >
+        {sets.map((s, i) => (
+          <SetCard
+            key={i}
+            setData={s}
+            setIndex={i}
+            repsConfig={repsConfig}
+            formatReps={formatReps}
+            onChange={(field, value) => onChange(i, field, value)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Main modal ────────────────────────────────────────────────────────────────
 export default function LogModal({ exercise, day, onClose, onSaved }) {
   const repsConfig = parseRepsConfig(exercise.reps)
-
   const [date, setDate] = useState(today())
   const [sets, setSets] = useState(() =>
     Array.from({ length: exercise.sets }, () => ({
@@ -151,31 +244,11 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
   )
   const [activeSet, setActiveSet] = useState(0)
   const [saving, setSaving] = useState(false)
-  const scrollRef = useRef()
-
-  function updateSet(index, field, value) {
-    setSets(prev => prev.map((s, i) => i === index ? { ...s, [field]: value } : s))
-  }
 
   function formatReps(val) {
     if (repsConfig.unit === 'sec') return `${val}s`
     if (repsConfig.unit === '/side') return `${val}/side`
     return String(val)
-  }
-
-  // Sync scroll position when activeSet changes via dot tap
-  function goToSet(i) {
-    setActiveSet(i)
-    const el = scrollRef.current
-    if (el) el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' })
-  }
-
-  // Update active dot as user swipes
-  function handleScroll() {
-    const el = scrollRef.current
-    if (!el) return
-    const i = Math.round(el.scrollLeft / el.clientWidth)
-    setActiveSet(i)
   }
 
   async function handleComplete() {
@@ -213,28 +286,22 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
           <button
             key={i}
             className={`log-dot${activeSet === i ? ' active' : ''}`}
-            onClick={() => goToSet(i)}
+            onClick={() => setActiveSet(i)}
             aria-label={`Set ${i + 1}`}
           />
         ))}
       </div>
 
-      <div
-        className="log-sets-scroll"
-        ref={scrollRef}
-        onScroll={handleScroll}
-      >
-        {sets.map((s, i) => (
-          <SetCard
-            key={i}
-            setData={s}
-            setIndex={i}
-            repsConfig={repsConfig}
-            formatReps={formatReps}
-            onChange={(field, value) => updateSet(i, field, value)}
-          />
-        ))}
-      </div>
+      <SetCarousel
+        sets={sets}
+        activeIndex={activeSet}
+        onActiveChange={setActiveSet}
+        repsConfig={repsConfig}
+        formatReps={formatReps}
+        onChange={(i, field, value) =>
+          setSets(prev => prev.map((s, idx) => idx === i ? { ...s, [field]: value } : s))
+        }
+      />
 
       <div className="log-footer">
         <button

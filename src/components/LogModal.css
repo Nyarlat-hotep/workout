@@ -81,27 +81,24 @@
   box-shadow: 0 0 6px rgba(0, 212, 255, 0.6);
 }
 
-/* ── Horizontal scroll carousel ─────────────────────────────────────────── */
-.log-sets-scroll {
+/* ── Custom carousel ─────────────────────────────────────────────────────── */
+.log-carousel {
   flex: 1;
-  display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  overflow: hidden;
   min-height: 0;
 }
 
-.log-sets-scroll::-webkit-scrollbar {
-  display: none;
+.log-carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
 }
 
 /* ── Individual set card ─────────────────────────────────────────────────── */
 .log-set-card {
   flex: 0 0 100%;
   width: 100%;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,7 +162,8 @@
     inset 0 0 40px rgba(0, 0, 0, 0.5);
   touch-action: none;
   cursor: pointer;
-  min-height: 180px;
+  min-height: 160px;
+  max-height: 46vh;
   overflow: hidden;
 }
 
