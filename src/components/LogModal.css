@@ -122,20 +122,22 @@
 .log-set-card {
   flex: 0 0 100%;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 16px 24px;
   min-height: 0;
 }
 
 /* ── Slider columns ──────────────────────────────────────────────────────── */
 .log-sliders {
+  flex: 1;
   width: 100%;
   display: flex;
   gap: 24px;
   justify-content: center;
+  min-height: 0;
 }
 
 .log-slider-col {
@@ -145,6 +147,7 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
+  min-height: 0;
 }
 
 .log-slider-value {
@@ -175,8 +178,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 240px;
-  width: 100%;
+  /* fill remaining column height */
+  flex: 1;
+  min-height: 0;
+  width: 56px;
   touch-action: none;
   user-select: none;
 }
@@ -186,7 +191,8 @@
   flex-grow: 1;
   border-radius: 999px;
   height: 100%;
-  width: 48px;
+  width: 56px;
+  overflow: hidden;
 
   /* glassmorphism track */
   background: rgba(255, 255, 255, 0.04);
@@ -200,14 +206,11 @@
 
 .glass-slider-range {
   position: absolute;
-  border-radius: 999px;
   width: 100%;
-
-  /* glowing fill from bottom */
   background: linear-gradient(
     to top,
-    rgba(0, 212, 255, 0.5),
-    rgba(0, 212, 255, 0.15) 60%,
+    rgba(0, 212, 255, 0.55),
+    rgba(0, 212, 255, 0.12) 65%,
     transparent
   );
 }
