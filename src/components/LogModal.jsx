@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { X } from 'lucide-react'
 import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
@@ -226,7 +227,7 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
     <div className="log-screen">
       <div className="log-header">
         <span className="log-title">{exercise.name}</span>
-        <button className="log-close" onClick={onClose}>✕</button>
+        <button className="log-close" onClick={onClose}><X size={18} strokeWidth={2} /></button>
       </div>
 
       <div className="log-date-row">

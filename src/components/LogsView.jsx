@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { X, ArrowUp, ArrowDown } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './LogsView.css'
 
@@ -61,7 +62,7 @@ export default function LogsView() {
           className="logs-sort-btn"
           onClick={() => setSortAsc(a => !a)}
         >
-          {sortAsc ? '↑ Oldest' : '↓ Newest'}
+          {sortAsc ? <><ArrowUp size={13} strokeWidth={2.5} /> Oldest</> : <><ArrowDown size={13} strokeWidth={2.5} /> Newest</>}
         </button>
       </div>
 
@@ -90,7 +91,7 @@ export default function LogsView() {
               onChange={e => setFilterDate(e.target.value)}
             />
             {filterDate && (
-              <button className="logs-clear-date" onClick={() => setFilterDate('')}>✕</button>
+              <button className="logs-clear-date" onClick={() => setFilterDate('')}><X size={13} strokeWidth={2.5} /></button>
             )}
           </div>
         </div>

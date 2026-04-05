@@ -1,3 +1,4 @@
+import { Play, Plus } from 'lucide-react'
 import './ExerciseCard.css'
 
 export default function ExerciseCard({ exercise, onLog }) {
@@ -20,10 +21,10 @@ export default function ExerciseCard({ exercise, onLog }) {
       </div>
       <div className="exercise-actions">
         <button className="exercise-btn exercise-btn--watch" onClick={handleWatch}>
-          ▶ Watch
+          <Play size={13} strokeWidth={2.5} /> Watch
         </button>
         <button className="exercise-btn exercise-btn--log" onClick={() => onLog(exercise)}>
-          + Log
+          <Plus size={13} strokeWidth={2.5} /> Log
         </button>
       </div>
     </div>
