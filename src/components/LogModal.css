@@ -2,7 +2,7 @@
 .log-screen {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 1000;
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -230,6 +230,7 @@
   position: absolute;
   left: 5px;
   right: 5px;
+  bottom: 5px;
   width: calc(100% - 10px);
   border-radius: 999px;
   min-height: 70px; /* never smaller than a circle (bubble width = 70px) */
