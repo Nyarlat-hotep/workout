@@ -81,9 +81,9 @@ export const WORKOUT = [
             type: 'strength',
             exercises: [
               {
-                name: 'Weighted Dips',
+                name: 'Tempo Dips',
                 sets: 4, reps: '5',
-                notes: 'DB between feet · slight forward lean · full depth',
+                notes: '5 sec eccentric · 1 sec pause at bottom · press up controlled',
               },
               {
                 name: 'DB Push Press',
@@ -158,9 +158,9 @@ export const WORKOUT = [
             type: 'strength',
             exercises: [
               {
-                name: 'Weighted Pull-Up',
+                name: 'Tempo Pull-Up',
                 sets: 4, reps: '5',
-                notes: 'DB between feet or loaded pack · dead-hang start',
+                notes: '5 sec eccentric · 1 sec dead hang · pull explosively',
               },
               {
                 name: 'Chest-to-Bar Pull-Up',
@@ -228,9 +228,9 @@ export const WORKOUT = [
             type: 'strength',
             exercises: [
               {
-                name: 'Weighted Chin-Up',
+                name: 'L-Sit Chin-Up',
                 sets: 4, reps: '5',
-                notes: 'DB between feet · supinated grip · full ROM',
+                notes: 'Legs extended parallel to floor · supinated grip · full ROM',
               },
               {
                 name: 'Archer Pull-Up',
