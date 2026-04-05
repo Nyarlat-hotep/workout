@@ -84,6 +84,7 @@ export const WORKOUT = [
                 name: 'Tempo Dips',
                 sets: 4, reps: '5',
                 notes: '5 sec eccentric · 1 sec pause at bottom · press up controlled',
+                bodyweight: true,
               },
               {
                 name: 'DB Push Press',
@@ -161,6 +162,7 @@ export const WORKOUT = [
                 name: 'Tempo Pull-Up',
                 sets: 4, reps: '5',
                 notes: '5 sec eccentric · 1 sec dead hang · pull explosively',
+                bodyweight: true,
               },
               {
                 name: 'Chest-to-Bar Pull-Up',
@@ -231,6 +233,7 @@ export const WORKOUT = [
                 name: 'L-Sit Chin-Up',
                 sets: 4, reps: '5',
                 notes: 'Legs extended parallel to floor · supinated grip · full ROM',
+                bodyweight: true,
               },
               {
                 name: 'Archer Pull-Up',

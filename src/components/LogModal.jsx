@@ -54,7 +54,7 @@ function GlassSlider({ value, min, max, step, onChange }) {
   )
 }
 
-function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
+function SetCard({ setData, setIndex, repsConfig, formatReps, onChange, bodyweight }) {
   return (
     <div className="log-set-card">
       <div className="log-sliders">
@@ -69,17 +69,19 @@ function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
           />
           <div className="log-slider-label">Reps</div>
         </div>
-        <div className="log-slider-col">
-          <div className="log-slider-value">{setData.weight} lbs</div>
-          <GlassSlider
-            value={setData.weight}
-            min={0}
-            max={50}
-            step={2.5}
-            onChange={v => onChange('weight', v)}
-          />
-          <div className="log-slider-label">Weight</div>
-        </div>
+        {!bodyweight && (
+          <div className="log-slider-col">
+            <div className="log-slider-value">{setData.weight} lbs</div>
+            <GlassSlider
+              value={setData.weight}
+              min={0}
+              max={50}
+              step={2.5}
+              onChange={v => onChange('weight', v)}
+            />
+            <div className="log-slider-label">Weight</div>
+          </div>
+        )}
       </div>
     </div>
   )
@@ -107,7 +109,7 @@ function SetTabs({ count, activeIndex, onChange }) {
 }
 
 // ── Custom swipe carousel ─────────────────────────────────────────────────────
-function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps, onChange }) {
+function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps, onChange, bodyweight }) {
   const containerRef = useRef()
   const swipe = useRef(null)
   const [dragOffset, setDragOffset] = useState(0)
@@ -174,6 +176,7 @@ function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps
             repsConfig={repsConfig}
             formatReps={formatReps}
             onChange={(field, value) => onChange(i, field, value)}
+            bodyweight={bodyweight}
           />
         ))}
       </div>
@@ -244,6 +247,7 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
         onActiveChange={setActiveSet}
         repsConfig={repsConfig}
         formatReps={formatReps}
+        bodyweight={exercise.bodyweight}
         onChange={(i, field, value) =>
           setSets(prev => prev.map((s, idx) => idx === i ? { ...s, [field]: value } : s))
         }
