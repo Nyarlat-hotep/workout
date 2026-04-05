@@ -166,7 +166,7 @@
   touch-action: none;
   cursor: pointer;
   min-height: 180px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .vslider-fill {

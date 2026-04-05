@@ -101,7 +101,7 @@ function VerticalSlider({ value, min, max, step, onChange }) {
   return (
     <div className="vslider-track" ref={trackRef} onMouseDown={handleMouseDown}>
       <div className="vslider-fill" style={{ height: `${percent}%` }} />
-      <div className="vslider-thumb" style={{ bottom: `calc(${percent}% - ${THUMB_HALF}px)` }} />
+      <div className="vslider-thumb" style={{ bottom: `clamp(0px, calc(${percent}% - ${THUMB_HALF}px), calc(100% - ${THUMB_HALF * 2}px))` }} />
     </div>
   )
 }
