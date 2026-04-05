@@ -9,66 +9,61 @@ function today() {
 
 function parseRepsConfig(repsStr) {
   if (!repsStr || repsStr === 'max') return { min: 5, max: 12, start: 8, unit: 'reps' }
-
   const timeMatch = repsStr.match(/(\d+)s/)
   if (timeMatch) {
     const val = parseInt(timeMatch[1])
     return { min: 0, max: val * 2, start: val, unit: 'sec' }
   }
-
   const rangeMatch = repsStr.match(/(\d+)[–\-](\d+)/)
   if (rangeMatch) {
     const start = parseInt(rangeMatch[1])
     return { min: 1, max: Math.max(30, start * 3), start, unit: 'reps' }
   }
-
   const perSideMatch = repsStr.match(/(\d+)\/side/)
   if (perSideMatch) {
     const start = parseInt(perSideMatch[1])
     return { min: 1, max: Math.max(30, start * 3), start, unit: '/side' }
   }
-
   const numMatch = repsStr.match(/^(\d+)$/)
   if (numMatch) {
     const start = parseInt(numMatch[1])
     return { min: 1, max: Math.max(30, start * 3), start, unit: 'reps' }
   }
-
   return { min: 1, max: 30, start: 10, unit: 'reps' }
 }
 
 const THUMB_HALF = 32
+// How many pixels of drag = full range traversal. Higher = less sensitive.
+const DRAG_PIXELS_PER_RANGE = 280
 
 function VerticalSlider({ value, min, max, step, onChange }) {
   const trackRef = useRef()
-  const dragging = useRef(false)
-  const latest = useRef({ min, max, step, onChange })
-  latest.current = { min, max, step, onChange }
+  const dragState = useRef(null) // { startY, startValue }
+  const latest = useRef({ min, max, step, onChange, value })
+  latest.current = { min, max, step, onChange, value }
 
   useEffect(() => {
     const el = trackRef.current
     if (!el) return
 
-    function computeValue(clientY) {
-      const { min, max, step } = latest.current
-      const rect = el.getBoundingClientRect()
-      const ratio = 1 - (clientY - rect.top) / rect.height
-      const clamped = Math.max(0, Math.min(1, ratio))
-      const raw = min + clamped * (max - min)
+    function applyDelta(currentY) {
+      const { min, max, step, startValue } = { ...latest.current, ...dragState.current }
+      const delta = dragState.current.startY - currentY
+      const rawChange = (delta / DRAG_PIXELS_PER_RANGE) * (max - min)
+      const raw = startValue + rawChange
       const stepped = Math.round(raw / step) * step
       return parseFloat(Math.max(min, Math.min(max, stepped)).toFixed(2))
     }
 
     const onTouchStart = (e) => {
-      dragging.current = true
-      latest.current.onChange(computeValue(e.touches[0].clientY))
+      dragState.current = { startY: e.touches[0].clientY, startValue: latest.current.value }
     }
     const onTouchMove = (e) => {
-      if (!dragging.current) return
+      if (!dragState.current) return
       e.preventDefault()
-      latest.current.onChange(computeValue(e.touches[0].clientY))
+      latest.current.onChange(applyDelta(e.touches[0].clientY))
     }
-    const onTouchEnd = () => { dragging.current = false }
+    const onTouchEnd = () => { dragState.current = null }
 
     el.addEventListener('touchstart', onTouchStart, { passive: true })
     el.addEventListener('touchmove', onTouchMove, { passive: false })
@@ -81,19 +76,19 @@ function VerticalSlider({ value, min, max, step, onChange }) {
   }, [])
 
   function handleMouseDown(e) {
-    dragging.current = true
-    function compute(clientY) {
+    const startY = e.clientY
+    const startValue = latest.current.value
+    function applyDelta(currentY) {
       const { min, max, step } = latest.current
-      const rect = trackRef.current.getBoundingClientRect()
-      const ratio = 1 - (clientY - rect.top) / rect.height
-      const clamped = Math.max(0, Math.min(1, ratio))
-      const raw = min + clamped * (max - min)
-      return parseFloat(Math.max(min, Math.min(max, Math.round(raw / step) * step)).toFixed(2))
+      const delta = startY - currentY
+      const rawChange = (delta / DRAG_PIXELS_PER_RANGE) * (max - min)
+      const raw = startValue + rawChange
+      const stepped = Math.round(raw / step) * step
+      return parseFloat(Math.max(min, Math.min(max, stepped)).toFixed(2))
     }
-    latest.current.onChange(compute(e.clientY))
-    const onMove = (e) => { if (dragging.current) latest.current.onChange(compute(e.clientY)) }
+    latest.current.onChange(applyDelta(e.clientY))
+    const onMove = (e) => latest.current.onChange(applyDelta(e.clientY))
     const onUp = () => {
-      dragging.current = false
       document.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseup', onUp)
     }
@@ -111,6 +106,38 @@ function VerticalSlider({ value, min, max, step, onChange }) {
   )
 }
 
+function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
+  return (
+    <div className="log-set-card">
+      <div className="log-set-card-label">Set {setIndex + 1}</div>
+      <div className="log-sliders">
+        <div className="log-slider-col">
+          <div className="log-slider-value">{formatReps(setData.reps)}</div>
+          <VerticalSlider
+            value={setData.reps}
+            min={repsConfig.min}
+            max={repsConfig.max}
+            step={1}
+            onChange={v => onChange('reps', v)}
+          />
+          <div className="log-slider-label">Reps</div>
+        </div>
+        <div className="log-slider-col">
+          <div className="log-slider-value">{setData.weight} lbs</div>
+          <VerticalSlider
+            value={setData.weight}
+            min={0}
+            max={200}
+            step={2.5}
+            onChange={v => onChange('weight', v)}
+          />
+          <div className="log-slider-label">Weight</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function LogModal({ exercise, day, onClose, onSaved }) {
   const repsConfig = parseRepsConfig(exercise.reps)
 
@@ -123,15 +150,31 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
   )
   const [activeSet, setActiveSet] = useState(0)
   const [saving, setSaving] = useState(false)
+  const scrollRef = useRef()
 
-  function updateSet(field, value) {
-    setSets(prev => prev.map((s, i) => i === activeSet ? { ...s, [field]: value } : s))
+  function updateSet(index, field, value) {
+    setSets(prev => prev.map((s, i) => i === index ? { ...s, [field]: value } : s))
   }
 
   function formatReps(val) {
     if (repsConfig.unit === 'sec') return `${val}s`
     if (repsConfig.unit === '/side') return `${val}/side`
     return String(val)
+  }
+
+  // Sync scroll position when activeSet changes via dot tap
+  function goToSet(i) {
+    setActiveSet(i)
+    const el = scrollRef.current
+    if (el) el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' })
+  }
+
+  // Update active dot as user swipes
+  function handleScroll() {
+    const el = scrollRef.current
+    if (!el) return
+    const i = Math.round(el.scrollLeft / el.clientWidth)
+    setActiveSet(i)
   }
 
   async function handleComplete() {
@@ -153,8 +196,6 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
     onClose()
   }
 
-  const current = sets[activeSet]
-
   return (
     <div className="log-screen">
       <div className="log-header">
@@ -162,45 +203,39 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
         <button className="log-close" onClick={onClose}>✕</button>
       </div>
 
-      <div className="log-set-tabs">
+      <div className="log-date-row">
+        <DatePicker value={date} onChange={setDate} />
+      </div>
+
+      <div className="log-dots">
         {sets.map((_, i) => (
           <button
             key={i}
-            className={`log-set-tab${activeSet === i ? ' active' : ''}`}
-            onClick={() => setActiveSet(i)}
-          >
-            Set {i + 1}
-          </button>
+            className={`log-dot${activeSet === i ? ' active' : ''}`}
+            onClick={() => goToSet(i)}
+            aria-label={`Set ${i + 1}`}
+          />
         ))}
       </div>
 
-      <div className="log-sliders">
-        <div className="log-slider-col">
-          <div className="log-slider-value">{formatReps(current.reps)}</div>
-          <VerticalSlider
-            value={current.reps}
-            min={repsConfig.min}
-            max={repsConfig.max}
-            step={1}
-            onChange={v => updateSet('reps', v)}
+      <div
+        className="log-sets-scroll"
+        ref={scrollRef}
+        onScroll={handleScroll}
+      >
+        {sets.map((s, i) => (
+          <SetCard
+            key={i}
+            setData={s}
+            setIndex={i}
+            repsConfig={repsConfig}
+            formatReps={formatReps}
+            onChange={(field, value) => updateSet(i, field, value)}
           />
-          <div className="log-slider-label">Reps</div>
-        </div>
-        <div className="log-slider-col">
-          <div className="log-slider-value">{current.weight} lbs</div>
-          <VerticalSlider
-            value={current.weight}
-            min={0}
-            max={200}
-            step={2.5}
-            onChange={v => updateSet('weight', v)}
-          />
-          <div className="log-slider-label">Weight</div>
-        </div>
+        ))}
       </div>
 
       <div className="log-footer">
-        <DatePicker value={date} onChange={setDate} />
         <button
           className="log-complete-btn"
           onClick={handleComplete}

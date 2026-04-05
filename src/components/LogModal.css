@@ -42,42 +42,88 @@
 }
 .log-close:hover { color: var(--accent); }
 
-/* ── Set tabs ────────────────────────────────────────────────────────────── */
-.log-set-tabs {
-  display: flex;
-  gap: 8px;
-  padding: 12px 16px;
+/* ── Date row ────────────────────────────────────────────────────────────── */
+.log-date-row {
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
-.log-set-tab {
-  flex: 1;
-  padding: 9px 4px;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 1px;
+.log-date-row .datepicker-input {
+  font-size: 1rem;
+  padding: 12px 14px;
+}
+
+/* ── Set dots ────────────────────────────────────────────────────────────── */
+.log-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 0 8px;
+  flex-shrink: 0;
+}
+
+.log-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
-.log-set-tab.active {
-  border-color: var(--accent-dim);
-  color: var(--accent);
-  background: var(--accent-glow);
+.log-dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.6);
+}
+
+/* ── Horizontal scroll carousel ─────────────────────────────────────────── */
+.log-sets-scroll {
+  flex: 1;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  min-height: 0;
+}
+
+.log-sets-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Individual set card ─────────────────────────────────────────────────── */
+.log-set-card {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px 8px;
+  min-height: 0;
+}
+
+.log-set-card-label {
+  font-family: var(--font-head);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
 /* ── Sliders ─────────────────────────────────────────────────────────────── */
 .log-sliders {
   flex: 1;
+  width: 100%;
   display: flex;
   gap: 16px;
-  padding: 20px 24px;
   min-height: 0;
 }
 
@@ -86,7 +132,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   min-height: 0;
 }
 
@@ -109,7 +155,7 @@
 .vslider-track {
   flex: 1;
   width: 100%;
-  max-width: 110px;
+  max-width: 80px;
   position: relative;
   background: var(--bg-card);
   border: 2px solid var(--accent);
@@ -156,7 +202,7 @@
 
 .log-slider-label {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   letter-spacing: 3px;
   color: var(--text-muted);
   flex-shrink: 0;
@@ -167,14 +213,11 @@
   flex-shrink: 0;
   padding: 14px 16px;
   border-top: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .log-complete-btn {
   width: 100%;
-  padding: 15px;
+  padding: 16px;
   background: rgba(0, 212, 255, 0.07);
   border: 1px solid var(--accent-dim);
   border-radius: 6px;
