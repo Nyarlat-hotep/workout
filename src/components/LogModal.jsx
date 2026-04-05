@@ -34,6 +34,7 @@ function parseRepsConfig(repsStr) {
 }
 
 function GlassSlider({ value, min, max, step, onChange }) {
+  const pct = max === min ? 0 : ((value - min) / (max - min)) * 100
   return (
     <RadixSlider.Root
       className="glass-slider-root"
@@ -45,7 +46,8 @@ function GlassSlider({ value, min, max, step, onChange }) {
       onValueChange={([v]) => onChange(v)}
     >
       <RadixSlider.Track className="glass-slider-track">
-        <RadixSlider.Range className="glass-slider-range" />
+        <RadixSlider.Range style={{ display: 'none' }} />
+        <div className="glass-slider-range" style={{ height: `clamp(70px, ${pct}%, calc(100% - 10px))` }} />
       </RadixSlider.Track>
       <RadixSlider.Thumb className="glass-slider-thumb" />
     </RadixSlider.Root>
@@ -72,7 +74,7 @@ function SetCard({ setData, setIndex, repsConfig, formatReps, onChange }) {
           <GlassSlider
             value={setData.weight}
             min={0}
-            max={200}
+            max={50}
             step={2.5}
             onChange={v => onChange('weight', v)}
           />
@@ -89,7 +91,7 @@ function SetTabs({ count, activeIndex, onChange }) {
     <div className="set-tabs">
       <div
         className="set-tabs-pill"
-        style={{ transform: `translateX(calc(${activeIndex} * 100%))`, width: `${100 / count}%` }}
+        style={{ transform: `translateX(calc(${activeIndex} * 100%))`, width: `calc((100% - 8px) / ${count})` }}
       />
       {Array.from({ length: count }, (_, i) => (
         <button

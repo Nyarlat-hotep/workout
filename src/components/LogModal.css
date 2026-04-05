@@ -155,7 +155,7 @@
   font-size: 1rem;
   color: var(--accent);
   background: rgba(0, 212, 255, 0.06);
-  border: 1px solid rgba(0, 212, 255, 0.25);
+  /* border: 1px solid rgba(0, 212, 255, 0.25); */
   border-radius: 6px;
   padding: 7px 16px;
   letter-spacing: 2px;
@@ -199,27 +199,30 @@
   overflow: hidden;
 
   /* frosted glass track */
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(0, 180, 255, 0.06);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(0, 220, 255, 0.28);
+  transform: translateZ(0);
+  clip-path: inset(0 round 999px);
   box-shadow:
-    inset 0 0 20px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(0, 212, 255, 0.06);
+    inset 0 0 20px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 212, 255, 0.12),
+    0 0 18px rgba(0, 200, 255, 0.12);
 }
 
 /* specular glare on track */
 .glass-slider-track::after {
   content: '';
   position: absolute;
-  top: 6%;
+  top: 5%;
   left: 12%;
   width: 35%;
-  height: 18%;
+  height: 14%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.12),
     transparent 70%
   );
   pointer-events: none;
@@ -228,26 +231,28 @@
 /* The bubble — grows from dot at bottom to full pill */
 .glass-slider-range {
   position: absolute;
-  left: 5px !important;
-  right: 5px !important;
-  bottom: 5px !important;
-  width: calc(100% - 10px) !important;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  width: calc(100% - 10px);
   border-radius: 999px;
-  min-height: 70px; /* never smaller than a circle (bubble width = 70px) */
 
   /* glass bubble fill */
   background: linear-gradient(
     to top,
-    rgba(0, 200, 255, 0.75) 0%,
-    rgba(0, 212, 255, 0.45) 45%,
-    rgba(80, 225, 255, 0.18) 80%,
+    rgba(0, 230, 255, 1) 0%,
+    rgba(0, 200, 255, 0.85) 30%,
+    rgba(0, 170, 255, 0.55) 65%,
+    rgba(0, 140, 255, 0.18) 90%,
     transparent 100%
   );
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 0 12px rgba(0, 212, 255, 0.15);
+    inset 0 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 0 12px rgba(0, 220, 255, 0.3),
+    0 0 20px rgba(0, 210, 255, 0.5),
+    0 0 40px rgba(0, 180, 255, 0.2);
 
   /* specular highlight on bubble */
   overflow: hidden;
@@ -257,13 +262,13 @@
   content: '';
   position: absolute;
   top: 6px;
-  left: 18%;
-  width: 30%;
-  height: 16%;
+  left: 14%;
+  width: 38%;
+  height: 20%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.35),
     transparent 70%
   );
   pointer-events: none;
@@ -275,7 +280,7 @@
 }
 
 .glass-slider-root:focus-within .glass-slider-track {
-  border-color: rgba(0, 212, 255, 0.3);
+  border-color: rgba(0, 220, 255, 0.6);
 }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
