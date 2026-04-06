@@ -10,7 +10,7 @@ function today() {
 }
 
 function parseRepsConfig(repsStr) {
-  if (!repsStr || repsStr === 'max') return { min: 5, max: 12, start: 8, unit: 'reps' }
+  if (!repsStr || repsStr === 'max') return { min: 0, max: 16, start: 8, unit: 'reps' }
   const timeMatch = repsStr.match(/(\d+)s/)
   if (timeMatch) {
     const val = parseInt(timeMatch[1])
@@ -19,17 +19,17 @@ function parseRepsConfig(repsStr) {
   const rangeMatch = repsStr.match(/(\d+)[–\-](\d+)/)
   if (rangeMatch) {
     const start = parseInt(rangeMatch[1])
-    return { min: 1, max: Math.max(30, start * 3), start, unit: 'reps' }
+    return { min: 0, max: start * 2, start, unit: 'reps' }
   }
   const perSideMatch = repsStr.match(/(\d+)\/side/)
   if (perSideMatch) {
     const start = parseInt(perSideMatch[1])
-    return { min: 1, max: Math.max(30, start * 3), start, unit: '/side' }
+    return { min: 0, max: start * 2, start, unit: '/side' }
   }
   const numMatch = repsStr.match(/^(\d+)$/)
   if (numMatch) {
     const start = parseInt(numMatch[1])
-    return { min: 1, max: Math.max(30, start * 3), start, unit: 'reps' }
+    return { min: 0, max: start * 2, start, unit: 'reps' }
   }
   return { min: 1, max: 30, start: 10, unit: 'reps' }
 }
