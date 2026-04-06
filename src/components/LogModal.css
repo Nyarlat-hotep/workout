@@ -22,10 +22,10 @@
 
 .log-title {
   font-family: var(--font-head);
-  font-size: 1rem;
+  font-size: 1.2rem;
   letter-spacing: 1px;
   color: var(--accent);
-  text-shadow: 0 0 14px rgba(255, 110, 199, 0.45);
+  text-shadow: 0 0 14px rgba(255, 110, 199, 0.25);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -153,10 +153,10 @@
 }
 
 .log-slider-value {
-  font-family: var(--font-head);
-  font-size: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
   color: var(--accent);
-  background: rgba(255, 110, 199, 0.07);
+  background: rgba(255, 110, 199, 0.04);
   border-radius: var(--radius-btn);
   padding: 7px 16px;
   letter-spacing: 2px;
@@ -168,7 +168,7 @@
 
 .log-slider-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   letter-spacing: 3px;
   color: var(--text-muted);
 }
@@ -301,8 +301,9 @@
   border: 1px solid var(--accent-dim);
   border-radius: var(--radius-card);
   color: var(--accent);
-  font-family: var(--font-head);
-  font-size: 0.9rem;
+  /* font-family: var(--font-head); */
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
   letter-spacing: 3px;
   cursor: pointer;
   transition: all 0.2s;

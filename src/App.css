@@ -52,25 +52,17 @@ body {
 
 /* ── App shell ─────────────────────────────────────────────────────────────── */
 .app {
-  background: var(--bg);
   min-height: 100dvh;
   position: relative;
-}
-
-/* Vaporwave grid overlay */
-.app::before {
-  content: '';
-  position: fixed;
-  inset: 0;
+  /* Grid baked into background so backdrop-filter on cards blurs through it */
+  background-color: var(--bg);
   background-image:
     linear-gradient(rgba(0, 229, 204, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 229, 204, 0.07) 1px, transparent 1px);
   background-size: 44px 44px;
-  pointer-events: none;
-  z-index: 999;
 }
 
-[data-theme="light"] .app::before {
+[data-theme="light"] .app {
   background-image:
     linear-gradient(rgba(123, 0, 204, 0.09) 1px, transparent 1px),
     linear-gradient(90deg, rgba(123, 0, 204, 0.09) 1px, transparent 1px);
@@ -91,7 +83,7 @@ body {
 }
 
 [data-theme="light"] .app-header {
-  background: rgba(245, 214, 240, 0.96);
+  background: rgba(221, 208, 245, 0.96);
 }
 
 .app-header::after {
@@ -107,7 +99,7 @@ body {
   font-size: 1.05rem;
   font-weight: 400;
   letter-spacing: 4px;
-  background: linear-gradient(90deg, #00e5cc, #c77dff, #ff6ec7);
+  background: linear-gradient(90deg, #00e5cc, #ff6ec7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -115,7 +107,7 @@ body {
 }
 
 [data-theme="light"] .app-title {
-  background: linear-gradient(90deg, #00b8a9, #7b00cc, #e0007a);
+  background: linear-gradient(90deg, #00b8a9, #ff6ec7);
   -webkit-background-clip: text;
   background-clip: text;
   filter: drop-shadow(0 0 6px rgba(123, 0, 204, 0.3));

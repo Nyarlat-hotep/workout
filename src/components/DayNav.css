@@ -2,11 +2,16 @@
   position: fixed;
   bottom: 0; left: 0; right: 0;
   display: flex;
-  background: rgba(15, 8, 32, 0.97);
+  background: rgba(10, 6, 24, 0.94);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   z-index: 20;
+}
+
+[data-theme="light"] .day-nav {
+  background: rgba(221, 208, 245, 0.94);
 }
 
 .day-nav::before {
@@ -52,7 +57,7 @@
 .day-nav-tab--active .day-nav-label,
 .day-nav-tab--active .day-nav-num {
   color: var(--accent);
-  text-shadow: 0 0 14px rgba(255, 110, 199, 0.6);
+  text-shadow: 0 0 14px var(--accent-dim);
 }
 
 .day-nav-num {
