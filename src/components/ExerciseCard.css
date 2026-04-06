@@ -82,16 +82,16 @@
 
 .exercise-btn--watch:active,
 .exercise-btn--watch:hover {
-  border-color: rgba(0, 229, 204, 0.4);
-  color: var(--accent-2);
-  background: rgba(0, 229, 204, 0.07);
-  box-shadow: 0 0 12px rgba(0, 229, 204, 0.15);
-}
-
-.exercise-btn--log:active,
-.exercise-btn--log:hover {
   border-color: rgba(255, 110, 199, 0.4);
   color: var(--accent);
   background: var(--accent-glow);
   box-shadow: 0 0 12px rgba(255, 110, 199, 0.2);
+}
+
+.exercise-btn--log:active,
+.exercise-btn--log:hover {
+  border-color: rgba(0, 229, 204, 0.4);
+  color: var(--accent-2);
+  background: rgba(0, 229, 204, 0.07);
+  box-shadow: 0 0 12px rgba(0, 229, 204, 0.15);
 }
