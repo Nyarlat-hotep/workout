@@ -108,17 +108,8 @@
   border-color: var(--accent-dim) !important;
 }
 
-.datepicker-calendar .react-datepicker__navigation-icon {
-  position: static !important;
-  top: auto !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
 .datepicker-calendar .react-datepicker__navigation-icon::before {
-  position: static !important;
-  top: auto !important;
+  top: 10px !important;
   border-color: var(--accent) !important;
   border-width: 2px 2px 0 0 !important;
   width: 7px !important;
