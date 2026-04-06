@@ -159,6 +159,7 @@
   background: rgba(255, 110, 199, 0.04);
   border-radius: var(--radius-btn);
   padding: 7px 16px;
+  white-space: nowrap;
   letter-spacing: 2px;
   width: 100%;
   text-align: center;
