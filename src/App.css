@@ -24,12 +24,12 @@
 [data-theme="light"] {
   --bg:            #ddd0f5;
   --bg-surface:    #ebe4fc;
-  --bg-card:       rgba(255, 255, 255, 0.3);
-  --accent:        #fc49ff;
+  --bg-card:       rgba(255, 255, 255, 0.7);
+  --accent:        #fd6fff;
   --accent-2:      #00b8a9;
   --accent-3:      #fd8dff;
   --accent-dim:    rgba(123, 0, 204, 0.22);
-  --accent-glow:   rgba(123, 0, 204, 0.06);
+  --accent-glow:   rgba(123, 0, 204, 0.1);
   --text:          #160030;
   --text-dim:      rgba(30, 0, 60, 0.7);
   --text-muted:    rgba(90, 50, 130, 0.6);
@@ -65,8 +65,8 @@ body {
 
 [data-theme="light"] .app {
   background-image:
-    linear-gradient(rgba(123, 0, 204, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(123, 0, 204, 0.09) 1px, transparent 1px);
+    linear-gradient(rgba(123, 0, 204, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123, 0, 204, 0.04) 1px, transparent 1px);
 }
 
 /* ── Header ────────────────────────────────────────────────────────────────── */

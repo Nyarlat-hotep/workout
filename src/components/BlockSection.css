@@ -21,7 +21,7 @@
 
 .block-header--mobility {
   border-left-color: var(--accent-2);
-  background: linear-gradient(90deg, rgba(0, 229, 204, 0.06), transparent);
+  background: linear-gradient(90deg, rgba(0, 229, 204, 0.2), transparent);
 }
 
 .block-header--mobility .block-name {
