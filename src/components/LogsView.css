@@ -178,12 +178,120 @@
 }
 .log-exercise-group:last-child { border-bottom: none; }
 
+.log-exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
 .log-exercise-name {
   font-family: var(--font-head);
   font-size: 1.05rem;
   color: var(--text);
-  margin-bottom: 8px;
 }
+
+.log-exercise-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.log-action-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--text-muted);
+  padding: 5px 7px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.log-action-btn--edit:hover,
+.log-action-btn--edit:active {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+  background: var(--accent-glow);
+}
+
+.log-action-btn--delete:hover,
+.log-action-btn--delete:active {
+  color: #ff4d4d;
+  border-color: rgba(255, 77, 77, 0.3);
+  background: rgba(255, 77, 77, 0.06);
+}
+
+/* ── Confirm dialog ──────────────────────────────────────────────────────── */
+.log-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.log-confirm-dialog {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  width: 100%;
+  max-width: 320px;
+  backdrop-filter: blur(16px);
+}
+
+.log-confirm-title {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.log-confirm-body {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.log-confirm-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.log-confirm-cancel,
+.log-confirm-delete {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.log-confirm-cancel {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.log-confirm-cancel:hover { border-color: var(--accent-dim); color: var(--text); }
+
+.log-confirm-delete {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+  color: #ff4d4d;
+}
+.log-confirm-delete:hover { background: rgba(255, 77, 77, 0.2); }
 
 .log-sets-table {
   width: 100%;

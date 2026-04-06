@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { X, ArrowUp, ArrowDown } from 'lucide-react'
+import { X, ArrowUp, ArrowDown, Pencil, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import LogEditPage from './LogEditPage'
 import './LogsView.css'
 
 const DAY_OPTIONS = ['All', 'Push', 'Pull', 'Legs']
@@ -12,6 +13,8 @@ export default function LogsView() {
   const [filterDate, setFilterDate] = useState('')
   const [sortAsc, setSortAsc] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
+  const [editTarget, setEditTarget] = useState(null) // { exerciseName, sets }
+  const [confirmDelete, setConfirmDelete] = useState(null) // { exerciseName, ids }
 
   useEffect(() => { fetchLogs() }, [])
 
@@ -27,12 +30,18 @@ export default function LogsView() {
     setLoading(false)
   }
 
+  async function handleDelete() {
+    const ids = confirmDelete.ids
+    await supabase.from('workout_logs').delete().in('id', ids)
+    setConfirmDelete(null)
+    fetchLogs()
+  }
+
   // Group by logged_date + day_label, then by exercise_name
   let filtered = logs
   if (filterDay !== 'All') filtered = filtered.filter(l => l.day_label === filterDay.toUpperCase())
   if (filterDate) filtered = filtered.filter(l => l.logged_date === filterDate)
 
-  // Build grouped structure: { date: { day_label, exercises: { name: [sets] } } }
   const grouped = {}
   for (const log of filtered) {
     const key = `${log.logged_date}__${log.day_label}`
@@ -42,12 +51,21 @@ export default function LogsView() {
   }
 
   let sessions = Object.values(grouped).sort((a, b) =>
-    sortAsc
-      ? a.date.localeCompare(b.date)
-      : b.date.localeCompare(a.date)
+    sortAsc ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date)
   )
 
   const hasFilters = filterDay !== 'All' || filterDate
+
+  if (editTarget) {
+    return (
+      <LogEditPage
+        exerciseName={editTarget.exerciseName}
+        sets={editTarget.sets}
+        onClose={() => setEditTarget(null)}
+        onSaved={() => { setEditTarget(null); fetchLogs() }}
+      />
+    )
+  }
 
   return (
     <div className="logs-view">
@@ -58,10 +76,7 @@ export default function LogsView() {
         >
           Filter {hasFilters ? '●' : ''}
         </button>
-        <button
-          className="logs-sort-btn"
-          onClick={() => setSortAsc(a => !a)}
-        >
+        <button className="logs-sort-btn" onClick={() => setSortAsc(a => !a)}>
           {sortAsc ? <><ArrowUp size={13} strokeWidth={2.5} /> Oldest</> : <><ArrowDown size={13} strokeWidth={2.5} /> Newest</>}
         </button>
       </div>
@@ -109,7 +124,23 @@ export default function LogsView() {
           </div>
           {Object.entries(session.exercises).map(([exName, sets]) => (
             <div key={exName} className="log-exercise-group">
-              <div className="log-exercise-name">{exName}</div>
+              <div className="log-exercise-header">
+                <span className="log-exercise-name">{exName}</span>
+                <div className="log-exercise-actions">
+                  <button
+                    className="log-action-btn log-action-btn--edit"
+                    onClick={() => setEditTarget({ exerciseName: exName, sets })}
+                  >
+                    <Pencil size={14} strokeWidth={2} />
+                  </button>
+                  <button
+                    className="log-action-btn log-action-btn--delete"
+                    onClick={() => setConfirmDelete({ exerciseName: exName, ids: sets.map(s => s.id) })}
+                  >
+                    <Trash2 size={14} strokeWidth={2} />
+                  </button>
+                </div>
+              </div>
               <table className="log-sets-table">
                 <thead>
                   <tr>
@@ -132,6 +163,21 @@ export default function LogsView() {
           ))}
         </div>
       ))}
+
+      {confirmDelete && (
+        <div className="log-confirm-overlay">
+          <div className="log-confirm-dialog">
+            <div className="log-confirm-title">Delete logs?</div>
+            <div className="log-confirm-body">
+              Remove all sets for <strong>{confirmDelete.exerciseName}</strong>? This can't be undone.
+            </div>
+            <div className="log-confirm-actions">
+              <button className="log-confirm-cancel" onClick={() => setConfirmDelete(null)}>Cancel</button>
+              <button className="log-confirm-delete" onClick={handleDelete}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
