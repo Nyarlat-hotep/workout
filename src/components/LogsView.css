@@ -19,9 +19,9 @@
   border-radius: var(--radius-btn);
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 1rem;
   letter-spacing: 1.5px;
-  padding: 7px 12px;
+  padding: 8px 14px;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -42,7 +42,7 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  padding: 12px 14px;
+  padding: 14px 16px;
   margin-bottom: 14px;
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
 
 .logs-filter-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.9rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   flex-shrink: 0;
@@ -77,9 +77,9 @@
   border-radius: var(--radius-pill);
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   letter-spacing: 1px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -98,8 +98,8 @@
   border-radius: var(--radius-btn);
   color: var(--text);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  padding: 5px 8px;
+  font-size: 1rem;
+  padding: 6px 10px;
   color-scheme: dark;
 }
 .logs-date-input:focus {
@@ -122,7 +122,7 @@
 /* ── Session cards ─────────────────────────────────────────────────────────── */
 .logs-empty {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   text-align: center;
@@ -150,14 +150,14 @@
 
 .log-session-date {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   color: var(--text);
   letter-spacing: 0.5px;
 }
 
 .log-session-day {
   font-family: var(--font-head);
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   letter-spacing: 2px;
   color: var(--accent);
   text-shadow: 0 0 10px rgba(255, 110, 199, 0.4);
@@ -171,7 +171,7 @@
 
 .log-exercise-name {
   font-family: var(--font-head);
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--text);
   margin-bottom: 8px;
 }
@@ -183,7 +183,7 @@
 
 .log-sets-table th {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.85rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   text-align: left;
@@ -192,9 +192,9 @@
 
 .log-sets-table td {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text-dim);
-  padding: 4px 6px;
+  padding: 5px 6px;
 }
 
 .log-sets-table .log-set-num {
