@@ -38,6 +38,8 @@
 /* ── Filter panel ─────────────────────────────────────────────────────────── */
 .logs-filters {
   background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   padding: 12px 14px;
@@ -129,6 +131,8 @@
 
 .log-session {
   background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   margin-bottom: 12px;
