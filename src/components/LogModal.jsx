@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { X } from 'lucide-react'
+import { X, Play, Pause, RotateCcw, Check } from 'lucide-react'
 import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
@@ -205,6 +205,43 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
   const [activeSet, setActiveSet] = useState(0)
   const [saving, setSaving] = useState(false)
 
+  // Stopwatch
+  const [elapsed, setElapsed] = useState(0)
+  const [running, setRunning] = useState(false)
+  const intervalRef = useRef(null)
+  const startTimeRef = useRef(null)
+
+  useEffect(() => {
+    return () => clearInterval(intervalRef.current)
+  }, [])
+
+  function handleStartStop() {
+    if (running) {
+      clearInterval(intervalRef.current)
+      setRunning(false)
+    } else {
+      startTimeRef.current = Date.now() - elapsed
+      intervalRef.current = setInterval(() => {
+        setElapsed(Date.now() - startTimeRef.current)
+      }, 50)
+      setRunning(true)
+    }
+  }
+
+  function handleReset() {
+    clearInterval(intervalRef.current)
+    setElapsed(0)
+    setRunning(false)
+  }
+
+  function formatTime(ms) {
+    const totalSecs = Math.floor(ms / 1000)
+    const mins = Math.floor(totalSecs / 60)
+    const secs = totalSecs % 60
+    const cs = Math.floor((ms % 1000) / 10)
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}:${String(cs).padStart(2, '0')}`
+  }
+
   // Persist progress to sessionStorage on every change
   useEffect(() => {
     sessionStorage.setItem(SESSION_KEY(exercise.name), JSON.stringify(sets))
@@ -279,11 +316,25 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
 
       <div className="log-footer">
         <button
-          className="log-complete-btn"
+          className="log-footer-btn log-footer-btn--reset"
+          onClick={handleReset}
+          disabled={running || elapsed === 0}
+        >
+          <RotateCcw size={20} strokeWidth={2} />
+        </button>
+        <button
+          className={`log-footer-btn log-footer-btn--playpause${running ? ' playing' : ''}`}
+          onClick={handleStartStop}
+        >
+          {running ? <Pause size={20} strokeWidth={2} /> : <Play size={20} strokeWidth={2} />}
+        </button>
+        <div className="log-stopwatch">{formatTime(elapsed)}</div>
+        <button
+          className="log-footer-btn log-footer-btn--complete"
           onClick={handleComplete}
           disabled={saving || !date}
         >
-          {saving ? 'Saving...' : 'Complete'}
+          <Check size={22} strokeWidth={2.5} />
         </button>
       </div>
     </div>
