@@ -1,4 +1,11 @@
+import { Dumbbell, Footprints, ScrollText, MoveDown } from 'lucide-react'
 import './DayNav.css'
+
+const DAY_ICONS = [
+  <Dumbbell size={22} strokeWidth={1.75} />,
+  <MoveDown size={22} strokeWidth={1.75} />,
+  <Footprints size={22} strokeWidth={1.75} />,
+]
 
 export default function DayNav({ days, selected, onSelect }) {
   return (
@@ -10,7 +17,7 @@ export default function DayNav({ days, selected, onSelect }) {
           onClick={() => onSelect(i)}
           aria-pressed={selected === i}
         >
-          <span className="day-nav-num">Day {day.day}</span>
+          <div className="day-nav-icon">{DAY_ICONS[i]}</div>
           <span className="day-nav-label">{day.label}</span>
         </button>
       ))}
@@ -19,8 +26,8 @@ export default function DayNav({ days, selected, onSelect }) {
         onClick={() => onSelect('logs')}
         aria-pressed={selected === 'logs'}
       >
-        <span className="day-nav-num">View</span>
-        <span className="day-nav-label">Logs</span>
+        <div className="day-nav-icon"><ScrollText size={22} strokeWidth={1.75} /></div>
+        <span className="day-nav-label">LOGS</span>
       </button>
     </nav>
   )

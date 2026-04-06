@@ -14,7 +14,7 @@
   --border-active: rgba(0, 229, 204, 0.7);
   --font-head:     'Righteous', cursive;
   --font-mono:     'VT323', monospace;
-  --nav-height:    62px;
+  --nav-height:    88px;
   --radius-card:   2px;
   --radius-btn:    2px;
   --radius-pill:   3px;
@@ -24,7 +24,7 @@
 [data-theme="light"] {
   --bg:            #ddd0f5;
   --bg-surface:    #ebe4fc;
-  --bg-card:       rgba(255, 255, 255, 0.62);
+  --bg-card:       rgba(255, 255, 255, 0.3);
   --accent:        #7b00cc;
   --accent-2:      #00b8a9;
   --accent-dim:    rgba(123, 0, 204, 0.22);
