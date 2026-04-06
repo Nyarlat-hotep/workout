@@ -1,4 +1,4 @@
-import { Play, Plus } from 'lucide-react'
+import { Play, Plus, X } from 'lucide-react'
 import './ExerciseCard.css'
 
 export default function ExerciseCard({ exercise, onLog }) {
@@ -16,7 +16,7 @@ export default function ExerciseCard({ exercise, onLog }) {
           {notes && <div className="exercise-notes">{notes}</div>}
         </div>
         <div className="exercise-badge">
-          <span className="badge-sets">{sets}×{reps}</span>
+          <span className="badge-sets">{sets} <X size={10} strokeWidth={2.5} /> {reps}</span>
         </div>
       </div>
       <div className="exercise-actions">
