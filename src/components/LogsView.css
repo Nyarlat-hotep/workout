@@ -166,7 +166,7 @@
 
 .log-session-day {
   font-family: var(--font-head);
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   letter-spacing: 2px;
   color: var(--accent);
   text-shadow: 0 0 10px rgba(255, 110, 199, 0.4);
