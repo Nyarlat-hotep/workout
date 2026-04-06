@@ -28,7 +28,7 @@
   padding: 0 4px;
   background: none;
   border: none;
-  border-top: 2px solid transparent;
+  border-top: 3px solid transparent;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;

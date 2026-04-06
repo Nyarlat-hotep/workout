@@ -157,7 +157,7 @@
   font-size: 1.1rem;
   color: var(--accent);
   background: rgba(255, 110, 199, 0.07);
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   padding: 7px 16px;
   letter-spacing: 2px;
   width: 100%;
@@ -299,7 +299,7 @@
   padding: 16px;
   background: rgba(255, 110, 199, 0.08);
   border: 1px solid var(--accent-dim);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   color: var(--accent);
   font-family: var(--font-head);
   font-size: 0.9rem;

@@ -1,4 +1,4 @@
-/* ── CSS Variables ─────────────────────────────────────────────────────────── */
+/* ── Dark mode (default) ───────────────────────────────────────────────────── */
 :root {
   --bg:            #0f0820;
   --bg-surface:    #180e30;
@@ -10,11 +10,30 @@
   --text:          #f0e6ff;
   --text-dim:      rgba(240, 224, 255, 0.65);
   --text-muted:    rgba(210, 185, 240, 0.48);
-  --border:        rgba(255, 110, 199, 0.16);
+  --border:        rgba(255, 110, 199, 0.22);
   --border-active: rgba(255, 110, 199, 0.7);
   --font-head:     'Righteous', cursive;
   --font-mono:     'VT323', monospace;
   --nav-height:    62px;
+  --radius-card:   2px;
+  --radius-btn:    2px;
+  --radius-pill:   3px;
+}
+
+/* ── Light mode ────────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:            #f5d6f0;
+  --bg-surface:    #fce8f8;
+  --bg-card:       #ffffff;
+  --accent:        #e0007a;
+  --accent-2:      #00b8a9;
+  --accent-dim:    rgba(224, 0, 122, 0.25);
+  --accent-glow:   rgba(224, 0, 122, 0.07);
+  --text:          #1a0030;
+  --text-dim:      rgba(40, 0, 70, 0.7);
+  --text-muted:    rgba(100, 50, 130, 0.6);
+  --border:        rgba(224, 0, 122, 0.3);
+  --border-active: rgba(224, 0, 122, 0.8);
 }
 
 /* ── Base ──────────────────────────────────────────────────────────────────── */
@@ -44,11 +63,17 @@ body {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 110, 199, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 110, 199, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(255, 110, 199, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 110, 199, 0.06) 1px, transparent 1px);
   background-size: 44px 44px;
   pointer-events: none;
   z-index: 999;
+}
+
+[data-theme="light"] .app::before {
+  background-image:
+    linear-gradient(rgba(224, 0, 122, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224, 0, 122, 0.08) 1px, transparent 1px);
 }
 
 /* ── Header ────────────────────────────────────────────────────────────────── */
@@ -60,14 +85,21 @@ body {
   background: rgba(15, 8, 32, 0.96);
   backdrop-filter: blur(12px);
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-theme="light"] .app-header {
+  background: rgba(245, 214, 240, 0.96);
 }
 
 .app-header::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), rgba(0, 229, 204, 0.6), transparent);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
 }
 
 .app-title {
@@ -79,7 +111,14 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 14px rgba(255, 110, 199, 0.5));
+  filter: drop-shadow(0 0 10px rgba(255, 110, 199, 0.4));
+}
+
+[data-theme="light"] .app-title {
+  background: linear-gradient(90deg, #e0007a, #9b00cc, #00b8a9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 6px rgba(224, 0, 122, 0.3));
 }
 
 .app-subtitle {
@@ -88,6 +127,29 @@ body {
   letter-spacing: 2px;
   color: var(--text-muted);
   margin-top: 2px;
+}
+
+/* ── Theme toggle ─────────────────────────────────────────────────────────── */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--text-muted);
+  padding: 7px 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:hover,
+.theme-toggle:active {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+  background: var(--accent-glow);
 }
 
 /* ── Body ──────────────────────────────────────────────────────────────────── */

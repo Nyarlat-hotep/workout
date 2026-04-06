@@ -16,7 +16,7 @@
   gap: 5px;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -39,7 +39,7 @@
 .logs-filters {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   padding: 12px 14px;
   margin-bottom: 14px;
   display: flex;
@@ -72,7 +72,7 @@
 .filter-pill {
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -93,7 +93,7 @@
 .logs-date-input {
   background: var(--bg-surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   color: var(--text);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -130,7 +130,7 @@
 .log-session {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   margin-bottom: 12px;
   overflow: hidden;
 }

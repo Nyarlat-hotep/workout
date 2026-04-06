@@ -1,7 +1,7 @@
 .exercise-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   margin-bottom: 6px;
   padding: 12px 14px;
@@ -40,7 +40,7 @@
   flex-shrink: 0;
   background: rgba(255, 110, 199, 0.07);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   padding: 5px 8px;
   min-width: 48px;
   text-align: center;
@@ -68,7 +68,7 @@
   padding: 8px 10px;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.85rem;
