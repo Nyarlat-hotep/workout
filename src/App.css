@@ -58,8 +58,8 @@ body {
   /* Grid baked into background so backdrop-filter on cards blurs through it */
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(0, 229, 204, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 204, 0.18) 1px, transparent 1px);
+    linear-gradient(rgba(0, 229, 204, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 204, 0.1) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
