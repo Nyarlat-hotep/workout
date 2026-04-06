@@ -217,6 +217,7 @@
 
 /* The bubble — grows from dot at bottom to full pill */
 .glass-slider-range {
+  transition: height 0.06s ease;
   position: absolute;
   left: 5px;
   right: 5px;
