@@ -8,8 +8,8 @@
 .variant-toggle {
   position: relative;
   display: flex;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 212, 255, 0.18);
+  background: rgba(255, 110, 199, 0.05);
+  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 4px;
   backdrop-filter: blur(8px);
@@ -23,9 +23,9 @@
   left: 4px;
   width: calc(50% - 4px);
   border-radius: 999px;
-  background: rgba(0, 212, 255, 0.14);
-  border: 1px solid rgba(0, 212, 255, 0.35);
-  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+  background: rgba(255, 110, 199, 0.15);
+  border: 1px solid rgba(255, 110, 199, 0.4);
+  box-shadow: 0 0 14px rgba(255, 110, 199, 0.25);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
@@ -38,8 +38,8 @@
   border: none;
   padding: 10px 4px;
   font-family: var(--font-head);
-  font-size: 0.75rem;
-  letter-spacing: 3px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
   color: var(--text-muted);
   cursor: pointer;
   border-radius: 999px;
@@ -49,4 +49,5 @@
 
 .variant-btn.active {
   color: var(--accent);
+  text-shadow: 0 0 10px rgba(255, 110, 199, 0.5);
 }

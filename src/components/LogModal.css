@@ -21,10 +21,11 @@
 }
 
 .log-title {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-family: var(--font-head);
+  font-size: 1rem;
   letter-spacing: 1px;
   color: var(--accent);
+  text-shadow: 0 0 14px rgba(255, 110, 199, 0.45);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,8 +64,8 @@
 .set-tabs {
   position: relative;
   display: flex;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 212, 255, 0.18);
+  background: rgba(255, 110, 199, 0.04);
+  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 4px;
   backdrop-filter: blur(8px);
@@ -76,9 +77,9 @@
   bottom: 4px;
   left: 4px;
   border-radius: 999px;
-  background: rgba(0, 212, 255, 0.14);
-  border: 1px solid rgba(0, 212, 255, 0.35);
-  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+  background: rgba(255, 110, 199, 0.14);
+  border: 1px solid rgba(255, 110, 199, 0.38);
+  box-shadow: 0 0 14px rgba(255, 110, 199, 0.22);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
@@ -91,8 +92,8 @@
   border: none;
   padding: 10px 4px;
   font-family: var(--font-head);
-  font-size: 0.7rem;
-  letter-spacing: 2px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
   color: var(--text-muted);
   cursor: pointer;
   border-radius: 999px;
@@ -102,6 +103,7 @@
 
 .set-tab-btn.active {
   color: var(--accent);
+  text-shadow: 0 0 10px rgba(255, 110, 199, 0.5);
 }
 
 /* ── Carousel ────────────────────────────────────────────────────────────── */
@@ -152,22 +154,21 @@
 
 .log-slider-value {
   font-family: var(--font-head);
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--accent);
-  background: rgba(0, 212, 255, 0.06);
-  /* border: 1px solid rgba(0, 212, 255, 0.25); */
+  background: rgba(255, 110, 199, 0.07);
   border-radius: 6px;
   padding: 7px 16px;
   letter-spacing: 2px;
   width: 100%;
   text-align: center;
   backdrop-filter: blur(8px);
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.08);
+  box-shadow: 0 0 12px rgba(255, 110, 199, 0.1);
 }
 
 .log-slider-label {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   letter-spacing: 3px;
   color: var(--text-muted);
 }
@@ -197,21 +198,18 @@
   height: 100%;
   width: 80px;
   overflow: hidden;
-
-  /* frosted glass track */
-  background: rgba(0, 180, 255, 0.06);
+  background: rgba(255, 110, 199, 0.05);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 220, 255, 0.28);
+  border: 1px solid rgba(255, 110, 199, 0.22);
   transform: translateZ(0);
   clip-path: inset(0 round 999px);
   box-shadow:
     inset 0 0 20px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(0, 212, 255, 0.12),
-    0 0 18px rgba(0, 200, 255, 0.12);
+    0 0 0 1px rgba(255, 110, 199, 0.08),
+    0 0 18px rgba(255, 110, 199, 0.08);
 }
 
-/* specular glare on track — hidden for preview */
 .glass-slider-track::after {
   content: none;
 }
@@ -224,62 +222,69 @@
   bottom: 5px;
   width: calc(100% - 10px);
   border-radius: 999px;
-
-  /* glass bubble fill */
   background: linear-gradient(
     to top,
-    rgba(0, 230, 255, 1) 0%,
-    rgba(0, 200, 255, 0.85) 30%,
-    rgba(0, 170, 255, 0.55) 65%,
-    rgba(0, 140, 255, 0.18) 90%,
+    rgba(255, 110, 199, 1) 0%,
+    rgba(220, 80, 220, 0.85) 30%,
+    rgba(180, 80, 255, 0.55) 65%,
+    rgba(140, 60, 255, 0.15) 90%,
     transparent 100%
   );
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.25),
-    inset 0 0 12px rgba(0, 220, 255, 0.3),
-    0 0 20px rgba(0, 210, 255, 0.5),
-    0 0 40px rgba(0, 180, 255, 0.2);
-
-  /* specular highlight on bubble */
+    inset 0 0 12px rgba(255, 110, 199, 0.3),
+    0 0 20px rgba(255, 110, 199, 0.5),
+    0 0 40px rgba(200, 80, 255, 0.2);
   overflow: hidden;
 }
 
 .glass-slider-range--empty {
   background: linear-gradient(
     to top,
-    rgba(160, 160, 170, 0.5) 0%,
-    rgba(130, 130, 140, 0.3) 45%,
-    rgba(100, 100, 110, 0.1) 85%,
+    rgba(160, 140, 180, 0.5) 0%,
+    rgba(130, 115, 150, 0.3) 45%,
+    rgba(100, 90, 120, 0.1) 85%,
     transparent 100%
   ) !important;
   box-shadow:
     inset 0 2px 0 rgba(255, 255, 255, 0.08),
-    inset 0 0 8px rgba(200, 200, 210, 0.1),
-    0 0 8px rgba(150, 150, 160, 0.1) !important;
+    inset 0 0 8px rgba(180, 160, 210, 0.1),
+    0 0 8px rgba(150, 130, 170, 0.1) !important;
 }
 
 .glass-slider-range--empty::after {
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.1),
     transparent 70%
   ) !important;
 }
 
-/* bubble highlight — hidden for preview */
 .glass-slider-range::after {
-  content: none;
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 14%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.35),
+    transparent 70%
+  );
+  pointer-events: none;
 }
 
-/* hide the default thumb — bubble fill IS the indicator */
+/* hide the default thumb */
 .glass-slider-thumb {
   display: none;
 }
 
 .glass-slider-root:focus-within .glass-slider-track {
-  border-color: rgba(0, 220, 255, 0.6);
+  border-color: rgba(255, 110, 199, 0.55);
 }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
@@ -292,22 +297,23 @@
 .log-complete-btn {
   width: 100%;
   padding: 16px;
-  background: rgba(0, 212, 255, 0.07);
+  background: rgba(255, 110, 199, 0.08);
   border: 1px solid var(--accent-dim);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--accent);
   font-family: var(--font-head);
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   letter-spacing: 3px;
   cursor: pointer;
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
+  text-shadow: 0 0 12px rgba(255, 110, 199, 0.4);
 }
 
 .log-complete-btn:hover,
 .log-complete-btn:active {
-  background: rgba(0, 212, 255, 0.14);
-  box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+  background: rgba(255, 110, 199, 0.16);
+  box-shadow: 0 0 20px rgba(255, 110, 199, 0.25);
 }
 
 .log-complete-btn:disabled {

@@ -11,12 +11,15 @@
 
 .logs-filter-btn,
 .logs-sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   letter-spacing: 1.5px;
   padding: 7px 12px;
   cursor: pointer;
@@ -28,13 +31,15 @@
 .logs-sort-btn:hover {
   border-color: var(--accent-dim);
   color: var(--accent);
+  background: var(--accent-glow);
+  box-shadow: 0 0 10px rgba(255, 110, 199, 0.12);
 }
 
 /* ── Filter panel ─────────────────────────────────────────────────────────── */
 .logs-filters {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 12px 14px;
   margin-bottom: 14px;
   display: flex;
@@ -51,7 +56,7 @@
 
 .logs-filter-label {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   flex-shrink: 0;
@@ -67,12 +72,12 @@
 .filter-pill {
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 999px;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 1px;
-  padding: 4px 10px;
+  padding: 4px 12px;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -82,15 +87,16 @@
   border-color: var(--accent-dim);
   color: var(--accent);
   background: var(--accent-glow);
+  box-shadow: 0 0 8px rgba(255, 110, 199, 0.15);
 }
 
 .logs-date-input {
   background: var(--bg-surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--text);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   padding: 5px 8px;
   color-scheme: dark;
 }
@@ -103,17 +109,18 @@
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 0.7rem;
   cursor: pointer;
   padding: 2px 4px;
   transition: color 0.15s;
+  display: flex;
+  align-items: center;
 }
 .logs-clear-date:hover { color: var(--accent); }
 
 /* ── Session cards ─────────────────────────────────────────────────────────── */
 .logs-empty {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   text-align: center;
@@ -123,7 +130,7 @@
 .log-session {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 12px;
   overflow: hidden;
 }
@@ -134,33 +141,33 @@
   justify-content: space-between;
   padding: 10px 14px;
   border-bottom: 1px solid var(--border);
-  background: rgba(0, 212, 255, 0.03);
+  background: rgba(255, 110, 199, 0.04);
 }
 
 .log-session-date {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--text);
   letter-spacing: 0.5px;
 }
 
 .log-session-day {
   font-family: var(--font-head);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 2px;
   color: var(--accent);
+  text-shadow: 0 0 10px rgba(255, 110, 199, 0.4);
 }
 
 .log-exercise-group {
   padding: 10px 14px;
-  border-bottom: 1px solid rgba(0, 212, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 110, 199, 0.06);
 }
 .log-exercise-group:last-child { border-bottom: none; }
 
 .log-exercise-name {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
   color: var(--text);
   margin-bottom: 8px;
 }
@@ -172,7 +179,7 @@
 
 .log-sets-table th {
   font-family: var(--font-mono);
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   text-align: left;
@@ -181,7 +188,7 @@
 
 .log-sets-table td {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: var(--text-dim);
   padding: 4px 6px;
 }

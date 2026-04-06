@@ -1,18 +1,19 @@
 /* ── CSS Variables ─────────────────────────────────────────────────────────── */
 :root {
-  --bg:            #050505;
-  --bg-surface:    #0d0d0f;
-  --bg-card:       #111116;
-  --accent:        #00d4ff;
-  --accent-dim:    rgba(0, 212, 255, 0.25);
-  --accent-glow:   rgba(0, 212, 255, 0.10);
-  --text:          rgba(220, 230, 240, 0.95);
-  --text-dim:      rgba(180, 195, 210, 0.65);
-  --text-muted:    rgba(151, 173, 196, 0.55);
-  --border:        rgba(0, 212, 255, 0.12);
-  --border-active: rgba(0, 212, 255, 0.7);
-  --font-head:     'Orbitron', monospace;
-  --font-mono:     monospace;
+  --bg:            #0f0820;
+  --bg-surface:    #180e30;
+  --bg-card:       #1e1240;
+  --accent:        #ff6ec7;
+  --accent-2:      #00e5cc;
+  --accent-dim:    rgba(255, 110, 199, 0.28);
+  --accent-glow:   rgba(255, 110, 199, 0.07);
+  --text:          #f0e6ff;
+  --text-dim:      rgba(240, 224, 255, 0.65);
+  --text-muted:    rgba(210, 185, 240, 0.48);
+  --border:        rgba(255, 110, 199, 0.16);
+  --border-active: rgba(255, 110, 199, 0.7);
+  --font-head:     'Righteous', cursive;
+  --font-mono:     'VT323', monospace;
   --nav-height:    62px;
 }
 
@@ -22,7 +23,6 @@ html {
   color: var(--text);
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
-  /* Let the document scroll so native browser PTR works */
   overflow-y: auto;
   overscroll-behavior-y: auto;
 }
@@ -38,18 +38,15 @@ body {
   position: relative;
 }
 
-/* Scanline overlay — very subtle CRT feel */
+/* Vaporwave grid overlay */
 .app::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.025) 3px,
-    rgba(0, 0, 0, 0.025) 4px
-  );
+  background-image:
+    linear-gradient(rgba(255, 110, 199, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 110, 199, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
   pointer-events: none;
   z-index: 999;
 }
@@ -60,7 +57,7 @@ body {
   top: 0; left: 0; right: 0;
   padding: 14px 20px 12px;
   padding-top: max(14px, env(safe-area-inset-top, 14px));
-  background: rgba(5, 5, 5, 0.96);
+  background: rgba(15, 8, 32, 0.96);
   backdrop-filter: blur(12px);
   z-index: 10;
 }
@@ -70,27 +67,31 @@ body {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), rgba(0, 229, 204, 0.6), transparent);
 }
 
 .app-title {
   font-family: var(--font-head);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 5px;
-  color: var(--accent);
-  text-shadow: 0 0 18px rgba(0, 212, 255, 0.45);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #ff6ec7, #c77dff, #00e5cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 14px rgba(255, 110, 199, 0.5));
 }
 
 .app-subtitle {
-  font-size: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   letter-spacing: 2px;
   color: var(--text-muted);
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
-/* ── Body — document scrolls, header + nav are fixed ──────────────────────── */
+/* ── Body ──────────────────────────────────────────────────────────────────── */
 .app-body {
-  padding-top: calc(56px + env(safe-area-inset-top, 0px));
+  padding-top: calc(60px + env(safe-area-inset-top, 0px));
   padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
 }

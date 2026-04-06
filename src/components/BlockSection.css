@@ -12,24 +12,29 @@
   background: linear-gradient(90deg, var(--accent-glow), transparent);
 }
 
-
-
 .block-name {
-  font-family: var(--font-mono);
-  font-size: .65rem;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
   letter-spacing: 3px;
   color: var(--accent);
 }
 
+.block-header--mobility {
+  border-left-color: var(--accent-2);
+  background: linear-gradient(90deg, rgba(0, 229, 204, 0.06), transparent);
+}
 
+.block-header--mobility .block-name {
+  color: var(--accent-2);
+}
 
 .block-duration {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   letter-spacing: 2px;
   color: var(--text-muted);
-  background: rgba(0, 212, 255, 0.06);
-  border: 1px solid var(--border);
+  background: rgba(0, 229, 204, 0.06);
+  border: 1px solid rgba(0, 229, 204, 0.18);
   border-radius: 3px;
   padding: 2px 6px;
 }
