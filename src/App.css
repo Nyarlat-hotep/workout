@@ -129,7 +129,7 @@ body {
 /* ── Theme toggle ─────────────────────────────────────────────────────────── */
 .theme-toggle {
   background: none;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   border-radius: var(--radius-btn);
   color: var(--text-muted);
   padding: 7px 9px;
@@ -145,8 +145,8 @@ body {
 .theme-toggle:hover,
 .theme-toggle:active {
   color: var(--accent);
-  border-color: var(--accent-dim);
-  background: var(--accent-glow);
+  border-color: var(--accent-2);
+  background: rgba(255, 110, 199, 0.07);
 }
 
 /* ── Body ──────────────────────────────────────────────────────────────────── */

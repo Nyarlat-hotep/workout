@@ -3,7 +3,7 @@ import './BlockSection.css'
 import ExerciseCard from './ExerciseCard'
 import LogModal from './LogModal'
 
-export default function BlockSection({ block, day, onExerciseSaved }) {
+export default function BlockSection({ block, day, completed = new Set(), onExerciseSaved }) {
   const [logExercise, setLogExercise] = useState(null)
 
   return (
@@ -16,6 +16,7 @@ export default function BlockSection({ block, day, onExerciseSaved }) {
           <ExerciseCard
             key={ex.name}
             exercise={ex}
+            done={completed.has(ex.name)}
             onLog={() => setLogExercise(ex)}
           />
         ))}

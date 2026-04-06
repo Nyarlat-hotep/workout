@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import BlockSection from './BlockSection'
+import { getCompleted } from '../utils/completedExercises'
 import './DayView.css'
 
 export default function DayView({ day }) {
@@ -16,6 +17,7 @@ export default function DayView({ day }) {
   }
 
   const [variant, setVariant] = useState(getInitialVariant)
+  const [completed, setCompleted] = useState(() => getCompleted())
 
   function handleToggle(v) {
     setVariant(v)
@@ -26,6 +28,7 @@ export default function DayView({ day }) {
     const today = new Date().toISOString().split('T')[0]
     localStorage.setItem(`variant_${dayKey}`, variant)
     localStorage.setItem(`date_${dayKey}`, today)
+    setCompleted(getCompleted())
   }
 
   const blocks = day.variants[variant].blocks
@@ -43,7 +46,7 @@ export default function DayView({ day }) {
         </div>
       </div>
       {blocks.map(block => (
-        <BlockSection key={block.id} block={block} day={day} onExerciseSaved={handleExerciseSaved} />
+        <BlockSection key={block.id} block={block} day={day} completed={completed} onExerciseSaved={handleExerciseSaved} />
       ))}
     </div>
   )

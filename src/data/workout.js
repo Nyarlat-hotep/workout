@@ -330,9 +330,14 @@ export const WORKOUT = [
                 notes: 'DB at chest · elbows track knees · full depth',
               },
               {
-                name: 'Hip Thrust on Bench',
-                sets: 3, reps: '15',
-                notes: 'DB on hips · upper back on bench · full extension',
+                name: 'DB Reverse Lunge',
+                sets: 3, reps: '12/side',
+                notes: 'Step back · front knee tracks foot · drive through heel to stand',
+              },
+              {
+                name: 'Single-Leg Calf Raise',
+                sets: 3, reps: '15/side',
+                notes: 'Stand on edge of step · full range · slow eccentric · hold DB for load',
               },
             ],
           },
@@ -345,11 +350,13 @@ export const WORKOUT = [
                 name: 'Dead Bug',
                 sets: 3, reps: '8/side',
                 notes: 'Low back glued to floor · slow · full extension',
+                bodyweight: true,
               },
               {
                 name: 'Copenhagen Plank',
                 sets: 3, reps: '20–30s/side',
                 notes: 'Foot on bench · hip stays level · don\'t sag',
+                bodyweight: true,
               },
               {
                 name: '90/90 Hip Stretch',
@@ -360,6 +367,7 @@ export const WORKOUT = [
                 name: 'Deep Squat Hold',
                 sets: 2, reps: '45s',
                 notes: 'Heels flat if possible · hold something for balance',
+                bodyweight: true,
               },
             ],
           },
@@ -399,6 +407,11 @@ export const WORKOUT = [
                 sets: 3, reps: '15',
                 notes: 'Shoulders on bench · DB on hips · squeeze at top',
               },
+              {
+                name: 'Standing Calf Raise',
+                sets: 4, reps: '20',
+                notes: 'Both feet · edge of step · pause at top and bottom · add DBs for load',
+              },
             ],
           },
           {
@@ -410,11 +423,13 @@ export const WORKOUT = [
                 name: 'Hollow Body Hold',
                 sets: 3, reps: '20–30s',
                 notes: 'Arms overhead · low back pressed down · legs low',
+                bodyweight: true,
               },
               {
                 name: 'Side Plank',
                 sets: 3, reps: '30s/side',
                 notes: 'Body straight · hip up · don\'t rotate',
+                bodyweight: true,
               },
               {
                 name: 'Hip Flexor Stretch',

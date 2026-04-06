@@ -5,10 +5,13 @@ import { WORKOUT } from './data/workout'
 import DayNav from './components/DayNav'
 import DayView from './components/DayView'
 import LogsView from './components/LogsView'
+import GripView from './components/GripView'
+import SideMenu from './components/SideMenu'
 
 export default function App() {
   const [selectedDay, setSelectedDay] = useState(0)
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -30,11 +33,24 @@ export default function App() {
       <main className="app-body">
         {selectedDay === 'logs'
           ? <LogsView />
+          : selectedDay === 'grip'
+          ? <GripView />
           : <DayView day={WORKOUT[selectedDay]} />
         }
       </main>
 
-      <DayNav days={WORKOUT} selected={selectedDay} onSelect={setSelectedDay} />
+      <SideMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onNavigate={setSelectedDay}
+      />
+      <DayNav
+        days={WORKOUT}
+        selected={selectedDay}
+        onSelect={setSelectedDay}
+        onMenuOpen={() => setMenuOpen(true)}
+        menuOpen={menuOpen}
+      />
     </div>
   )
 }

@@ -1,0 +1,29 @@
+.grip-view {
+  padding-top: 8px;
+}
+
+.grip-view-header {
+  padding: 10px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grip-view-title {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(255, 110, 199, 0.3);
+}
+
+[data-theme="light"] .grip-view-title {
+  text-shadow: none;
+}
+
+.grip-view-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}

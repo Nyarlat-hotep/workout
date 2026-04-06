@@ -24,7 +24,7 @@ export default function LogsView() {
       .from('workout_logs')
       .select('*')
       .order('logged_date', { ascending: false })
-      .order('exercise_name', { ascending: true })
+      .order('created_at', { ascending: true })
       .order('set_number', { ascending: true })
     if (!error) setLogs(data ?? [])
     setLoading(false)

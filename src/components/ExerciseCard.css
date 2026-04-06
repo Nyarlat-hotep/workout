@@ -7,6 +7,11 @@
   overflow: hidden;
   margin-bottom: 6px;
   padding: 12px 14px;
+  transition: opacity 0.3s ease;
+}
+
+.exercise-card--done {
+  opacity: 0.38;
 }
 
 .exercise-card-main {
@@ -41,7 +46,7 @@
 .exercise-badge {
   flex-shrink: 0;
   background: rgba(255, 110, 199, 0.07);
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent);
   border-radius: var(--radius-btn);
   padding: 5px 8px;
   min-width: 48px;

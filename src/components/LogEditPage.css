@@ -64,6 +64,27 @@
 .log-edit-save:hover { background: rgba(255, 110, 199, 0.15); }
 .log-edit-save:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* ── Prescription ────────────────────────────────────────────────────────── */
+.log-edit-prescription {
+  padding: 10px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.log-edit-prescription-sets {
+  color: var(--accent-2);
+  margin-right: 10px;
+  font-weight: 700;
+}
+
+.log-edit-prescription-notes {
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
 /* ── Body ────────────────────────────────────────────────────────────────── */
 .log-edit-body {
   flex: 1;

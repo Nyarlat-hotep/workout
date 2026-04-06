@@ -1,4 +1,4 @@
-import { Dumbbell, Footprints, ScrollText, MoveDown } from 'lucide-react'
+import { Dumbbell, Footprints, ScrollText, MoveDown, Menu } from 'lucide-react'
 import './DayNav.css'
 
 const DAY_ICONS = [
@@ -7,7 +7,7 @@ const DAY_ICONS = [
   <Footprints size={22} strokeWidth={1.75} />,
 ]
 
-export default function DayNav({ days, selected, onSelect }) {
+export default function DayNav({ days, selected, onSelect, onMenuOpen, menuOpen }) {
   return (
     <nav className="day-nav" aria-label="Training days">
       {days.map((day, i) => (
@@ -26,6 +26,13 @@ export default function DayNav({ days, selected, onSelect }) {
         aria-pressed={selected === 'logs'}
       >
         <div className="day-nav-icon"><ScrollText size={22} strokeWidth={1.75} /><span className="day-nav-label">LOGS</span></div>
+      </button>
+      <button
+        className={`day-nav-tab${menuOpen || selected === 'grip' ? ' day-nav-tab--active' : ''}`}
+        onClick={onMenuOpen}
+        aria-pressed={menuOpen}
+      >
+        <div className="day-nav-icon"><Menu size={22} strokeWidth={1.75} /><span className="day-nav-label">MORE</span></div>
       </button>
     </nav>
   )

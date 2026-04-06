@@ -1,7 +1,7 @@
 import { Play, Plus, X } from 'lucide-react'
 import './ExerciseCard.css'
 
-export default function ExerciseCard({ exercise, onLog }) {
+export default function ExerciseCard({ exercise, done, onLog }) {
   const { name, sets, reps, notes } = exercise
 
   function handleWatch() {
@@ -9,7 +9,7 @@ export default function ExerciseCard({ exercise, onLog }) {
   }
 
   return (
-    <div className="exercise-card">
+    <div className={`exercise-card${done ? ' exercise-card--done' : ''}`}>
       <div className="exercise-card-main">
         <div className="exercise-card-info">
           <div className="exercise-name">{name}</div>

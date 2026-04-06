@@ -43,6 +43,16 @@
 }
 .log-close:hover { color: var(--accent); }
 
+/* ── Prescription ────────────────────────────────────────────────────────── */
+.log-prescription {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
 /* ── Date row ────────────────────────────────────────────────────────────── */
 .log-date-row {
   padding: 14px 16px;

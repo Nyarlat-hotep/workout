@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
+import { markCompleted } from '../utils/completedExercises'
 import './LogModal.css'
 
 function today() {
@@ -186,17 +187,28 @@ function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps
 }
 
 // ── Main modal ────────────────────────────────────────────────────────────────
+const SESSION_KEY = (name) => `log_progress_${name}`
+
 export default function LogModal({ exercise, day, onClose, onSaved }) {
   const repsConfig = parseRepsConfig(exercise.reps)
   const [date, setDate] = useState(today())
-  const [sets, setSets] = useState(() =>
-    Array.from({ length: exercise.sets }, () => ({
+  const [sets, setSets] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem(SESSION_KEY(exercise.name))
+      if (saved) return JSON.parse(saved)
+    } catch {}
+    return Array.from({ length: exercise.sets }, () => ({
       reps: repsConfig.start,
       weight: 0,
     }))
-  )
+  })
   const [activeSet, setActiveSet] = useState(0)
   const [saving, setSaving] = useState(false)
+
+  // Persist progress to sessionStorage on every change
+  useEffect(() => {
+    sessionStorage.setItem(SESSION_KEY(exercise.name), JSON.stringify(sets))
+  }, [sets, exercise.name])
 
   function formatReps(val) {
     if (repsConfig.unit === 'sec') return `${val}s`
@@ -219,6 +231,8 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
     const { error } = await supabase.from('workout_logs').insert(records)
     setSaving(false)
     if (error) { alert('Failed to save. Please try again.'); return }
+    sessionStorage.removeItem(SESSION_KEY(exercise.name))
+    markCompleted(exercise.name)
     onSaved()
     onClose()
   }
@@ -228,6 +242,15 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
       <div className="log-header">
         <span className="log-title">{exercise.name}</span>
         <button className="log-close" onClick={onClose}><X size={18} strokeWidth={2} /></button>
+      </div>
+
+      <div className="log-prescription">
+        <div className="exercise-card-info">
+          {exercise.notes && <div className="exercise-notes">{exercise.notes}</div>}
+        </div>
+        <div className="exercise-badge">
+          <span className="badge-sets">{exercise.sets} <X size={10} strokeWidth={2.5} /> {exercise.reps}</span>
+        </div>
       </div>
 
       <div className="log-date-row">

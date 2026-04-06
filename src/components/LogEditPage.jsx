@@ -1,7 +1,19 @@
 import { useState } from 'react'
 import { ArrowLeft, Save } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import { WORKOUT } from '../data/workout'
 import './LogEditPage.css'
+
+const exerciseLookup = {}
+for (const day of WORKOUT) {
+  for (const variant of Object.values(day.variants)) {
+    for (const block of variant.blocks) {
+      for (const ex of block.exercises) {
+        exerciseLookup[ex.name] = { sets: ex.sets, reps: ex.reps, notes: ex.notes }
+      }
+    }
+  }
+}
 
 export default function LogEditPage({ exerciseName, sets, onClose, onSaved }) {
   const [rows, setRows] = useState(sets.map(s => ({
@@ -28,6 +40,8 @@ export default function LogEditPage({ exerciseName, sets, onClose, onSaved }) {
     onSaved()
   }
 
+  const prescription = exerciseLookup[exerciseName]
+
   return (
     <div className="log-edit-page">
       <div className="log-edit-header">
@@ -40,6 +54,13 @@ export default function LogEditPage({ exerciseName, sets, onClose, onSaved }) {
           {saving ? 'Saving...' : 'Save'}
         </button>
       </div>
+
+      {prescription && (
+        <div className="log-edit-prescription">
+          <span className="log-edit-prescription-sets">{prescription.sets} × {prescription.reps}</span>
+          {prescription.notes && <span className="log-edit-prescription-notes">{prescription.notes}</span>}
+        </div>
+      )}
 
       <div className="log-edit-body">
         <div className="log-edit-table-header">
