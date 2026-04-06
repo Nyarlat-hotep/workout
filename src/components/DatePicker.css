@@ -100,7 +100,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  overflow: hidden;
+  overflow: visible !important;
 }
 
 .datepicker-calendar .react-datepicker__navigation:hover {
