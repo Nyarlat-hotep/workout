@@ -107,6 +107,15 @@
   border-color: var(--accent-dim);
 }
 
+.logs-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.5);
+  cursor: pointer;
+}
+
+[data-theme="light"] .logs-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.2) sepia(1) saturate(3) hue-rotate(230deg) opacity(0.6);
+}
+
 .logs-clear-date {
   background: none;
   border: none;
