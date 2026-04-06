@@ -27,7 +27,7 @@
   border-radius: 4px !important;
   font-family: var(--font-mono) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 12px var(--accent-dim) !important;
-  width: 320px !important;
+  width: 360px !important;
 }
 
 .datepicker-calendar .react-datepicker__month-container {
@@ -58,7 +58,7 @@
 .datepicker-calendar .react-datepicker__current-month {
   color: var(--accent) !important;
   font-family: var(--font-mono) !important;
-  font-size: 0.85rem !important;
+  font-size: 1.2rem !important;
   letter-spacing: 0.15em;
   margin-bottom: 0.5rem;
 }
@@ -83,19 +83,19 @@
 .datepicker-calendar .react-datepicker__day-name {
   color: var(--text-muted) !important;
   font-family: var(--font-mono) !important;
-  font-size: 0.7rem !important;
+  font-size: 1rem !important;
   letter-spacing: 0.1em;
-  width: 2.5rem !important;
-  line-height: 2.5rem !important;
+  width: 3rem !important;
+  line-height: 3rem !important;
 }
 
 .datepicker-calendar .react-datepicker__day {
   color: var(--text) !important;
   font-family: var(--font-mono) !important;
-  font-size: 0.85rem !important;
+  font-size: 1.1rem !important;
   border-radius: 4px !important;
-  width: 2.5rem !important;
-  line-height: 2.5rem !important;
+  width: 3rem !important;
+  line-height: 3rem !important;
   transition: background 0.15s, color 0.15s;
 }
 
