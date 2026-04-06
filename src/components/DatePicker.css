@@ -104,6 +104,8 @@
 .datepicker-calendar .react-datepicker__navigation--next {
   right: 16px !important;
 }
+
+.datepicker-calendar .react-datepicker__navigation {
   border: 1px solid transparent !important;
   border-radius: 3px !important;
   background: transparent !important;
