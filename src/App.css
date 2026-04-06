@@ -95,6 +95,10 @@ body {
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
 }
 
+[data-theme="light"] .app-header::after {
+  background: linear-gradient(90deg, transparent, #00b8a9, #ff6ec7, transparent);
+}
+
 .app-title {
   font-family: var(--font-head);
   font-size: 1.05rem;
