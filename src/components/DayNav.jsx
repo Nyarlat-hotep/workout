@@ -17,8 +17,7 @@ export default function DayNav({ days, selected, onSelect }) {
           onClick={() => onSelect(i)}
           aria-pressed={selected === i}
         >
-          <div className="day-nav-icon">{DAY_ICONS[i]}</div>
-          <span className="day-nav-label">{day.label}</span>
+          <div className="day-nav-icon">{DAY_ICONS[i]}<span className="day-nav-label">{day.label}</span></div>
         </button>
       ))}
       <button
@@ -26,8 +25,7 @@ export default function DayNav({ days, selected, onSelect }) {
         onClick={() => onSelect('logs')}
         aria-pressed={selected === 'logs'}
       >
-        <div className="day-nav-icon"><ScrollText size={22} strokeWidth={1.75} /></div>
-        <span className="day-nav-label">LOGS</span>
+        <div className="day-nav-icon"><ScrollText size={22} strokeWidth={1.75} /><span className="day-nav-label">LOGS</span></div>
       </button>
     </nav>
   )

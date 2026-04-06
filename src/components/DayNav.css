@@ -31,12 +31,14 @@
 }
 
 .day-nav-icon {
-  width: 54px;
-  height: 54px;
+  width: 64px;
+  height: 64px;
   border-radius: 14px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   background: rgba(10, 6, 24, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -64,12 +66,16 @@
 
 .day-nav-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 1.5px;
-  color: var(--text-muted);
+  color: rgba(200, 185, 230, 0.7);
   transition: color 0.2s;
 }
 
+[data-theme="light"] .day-nav-label {
+  color: rgba(90, 50, 130, 0.7);
+}
+
 .day-nav-tab--active .day-nav-label {
-  color: var(--accent);
+  color: #fff;
 }
