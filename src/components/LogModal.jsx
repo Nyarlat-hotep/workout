@@ -48,7 +48,7 @@ function GlassSlider({ value, min, max, step, onChange }) {
     >
       <RadixSlider.Track className="glass-slider-track">
         <RadixSlider.Range style={{ display: 'none' }} />
-        <div className="glass-slider-range" style={{ height: `clamp(70px, ${pct}%, calc(100% - 10px))` }} />
+        <div className={`glass-slider-range${value === min ? ' glass-slider-range--empty' : ''}`} style={{ height: `clamp(70px, ${pct}%, calc(100% - 10px))` }} />
       </RadixSlider.Track>
       <RadixSlider.Thumb className="glass-slider-thumb" />
     </RadixSlider.Root>

@@ -258,6 +258,28 @@
   overflow: hidden;
 }
 
+.glass-slider-range--empty {
+  background: linear-gradient(
+    to top,
+    rgba(160, 160, 170, 0.5) 0%,
+    rgba(130, 130, 140, 0.3) 45%,
+    rgba(100, 100, 110, 0.1) 85%,
+    transparent 100%
+  ) !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 8px rgba(200, 200, 210, 0.1),
+    0 0 8px rgba(150, 150, 160, 0.1) !important;
+}
+
+.glass-slider-range--empty::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.12),
+    transparent 70%
+  ) !important;
+}
+
 .glass-slider-range::after {
   content: '';
   position: absolute;
