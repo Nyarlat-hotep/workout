@@ -179,8 +179,8 @@
 
 .log-slider-label {
   font-family: var(--font-mono);
-  font-size: 0.95rem;
-  letter-spacing: 3px;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
   color: var(--text-muted);
 }
 
