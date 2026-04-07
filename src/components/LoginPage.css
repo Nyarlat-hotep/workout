@@ -1,0 +1,186 @@
+.login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  overflow: hidden;
+  padding: 24px;
+}
+
+/* ── Blobs — reuse same vaporwave feel ───────────────────────────────────── */
+.login-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.login-blob {
+  position: absolute;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+}
+
+.login-blob--1 {
+  width: 100vw;
+  height: 100vw;
+  top: -20%;
+  left: -20%;
+  background: radial-gradient(ellipse at center, #ff3cac 0%, #ff6ec7 40%, transparent 72%);
+  opacity: 0.3;
+  animation: login-blob-1 28s ease-in-out infinite;
+}
+
+.login-blob--2 {
+  width: 90vw;
+  height: 90vw;
+  bottom: -10%;
+  right: -15%;
+  background: radial-gradient(ellipse at center, #ff8c00 0%, #ff4500 40%, transparent 70%);
+  opacity: 0.2;
+  animation: login-blob-2 36s ease-in-out infinite;
+}
+
+.login-blob--3 {
+  width: 70vw;
+  height: 70vw;
+  top: 30%;
+  left: 10%;
+  background: radial-gradient(ellipse at center, #b400ff 0%, #7b00cc 45%, transparent 70%);
+  opacity: 0.22;
+  animation: login-blob-3 22s ease-in-out infinite;
+}
+
+[data-theme="light"] .login-blob {
+  mix-blend-mode: multiply;
+  opacity: 0.15;
+}
+
+@keyframes login-blob-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); border-radius: 42% 58% 55% 45% / 48% 52% 60% 40%; }
+  50%       { transform: translate(20vw, 15vh) scale(1.05); border-radius: 60% 40% 45% 55% / 55% 45% 38% 62%; }
+}
+@keyframes login-blob-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); border-radius: 58% 42% 38% 62% / 52% 48% 45% 55%; }
+  50%       { transform: translate(-25vw, -20vh) scale(0.95); border-radius: 40% 60% 55% 45% / 62% 38% 58% 42%; }
+}
+@keyframes login-blob-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%; }
+  50%       { transform: translate(15vw, -15vh) scale(1.08); border-radius: 38% 62% 58% 42% / 48% 52% 38% 62%; }
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 340px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 32px 28px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.login-title {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(255, 110, 199, 0.35);
+  margin-bottom: 4px;
+}
+
+[data-theme="light"] .login-title {
+  text-shadow: none;
+}
+
+.login-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+/* ── Form ─────────────────────────────────────────────────────────────────── */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.login-input {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.login-input:focus {
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.login-error {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #ff4d4d;
+  letter-spacing: 0.5px;
+  padding: 8px 10px;
+  background: rgba(255, 77, 77, 0.08);
+  border: 1px solid rgba(255, 77, 77, 0.25);
+  border-radius: var(--radius-btn);
+}
+
+.login-btn {
+  margin-top: 4px;
+  padding: 14px;
+  background: rgba(255, 110, 199, 0.08);
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--radius-btn);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.login-btn:hover {
+  background: rgba(255, 110, 199, 0.16);
+  box-shadow: 0 0 16px rgba(255, 110, 199, 0.25);
+}
+
+.login-btn:active {
+  transform: scale(0.97);
+}
+
+.login-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
