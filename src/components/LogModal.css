@@ -8,6 +8,97 @@
   flex-direction: column;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  overflow: hidden;
+}
+
+/* ── Morphic background blobs ────────────────────────────────────────────── */
+.log-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.log-blob {
+  position: absolute;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+  will-change: transform, border-radius;
+}
+
+/* Blob 1 — hot pink/magenta, starts top-left, roams across */
+.log-blob--1 {
+  width: 100vw;
+  height: 100vw;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(ellipse at center, #ff3cac 0%, #ff6ec7 40%, transparent 72%);
+  opacity: 0.35;
+  animation: blob-drift-1 40s ease-in-out infinite;
+}
+
+/* Blob 2 — orange/gold, starts bottom-right, roams up */
+.log-blob--2 {
+  width: 90vw;
+  height: 90vw;
+  bottom: -5%;
+  right: -10%;
+  background: radial-gradient(ellipse at center, #ff8c00 0%, #ff4500 40%, transparent 70%);
+  opacity: 0.28;
+  animation: blob-drift-2 50s ease-in-out infinite;
+}
+
+/* Blob 3 — violet/purple, starts mid, drifts diagonally */
+.log-blob--3 {
+  width: 80vw;
+  height: 80vw;
+  top: 30%;
+  left: 10%;
+  background: radial-gradient(ellipse at center, #b400ff 0%, #7b00cc 45%, transparent 70%);
+  opacity: 0.25;
+  animation: blob-drift-3 35s ease-in-out infinite;
+}
+
+/* Light mode: multiply blend on light bg */
+[data-theme="light"] .log-blob {
+  mix-blend-mode: multiply;
+  opacity: 0.18;
+}
+
+@keyframes blob-drift-1 {
+  0%   { transform: translate(0, 0) scale(1);       border-radius: 42% 58% 55% 45% / 48% 52% 60% 40%; }
+  20%  { transform: translate(30vw, 20vh) scale(1.05); border-radius: 60% 40% 45% 55% / 55% 45% 38% 62%; }
+  45%  { transform: translate(50vw, 50vh) scale(0.95); border-radius: 35% 65% 62% 38% / 60% 40% 52% 48%; }
+  70%  { transform: translate(20vw, 65vh) scale(1.08); border-radius: 55% 45% 38% 62% / 42% 58% 65% 35%; }
+  100% { transform: translate(0, 0) scale(1);       border-radius: 42% 58% 55% 45% / 48% 52% 60% 40%; }
+}
+
+@keyframes blob-drift-2 {
+  0%   { transform: translate(0, 0) scale(1);          border-radius: 58% 42% 38% 62% / 52% 48% 45% 55%; }
+  25%  { transform: translate(-40vw, -30vh) scale(1.06); border-radius: 40% 60% 55% 45% / 62% 38% 58% 42%; }
+  55%  { transform: translate(-20vw, -60vh) scale(0.94); border-radius: 65% 35% 42% 58% / 45% 55% 40% 60%; }
+  80%  { transform: translate(-50vw, -20vh) scale(1.04); border-radius: 48% 52% 60% 40% / 58% 42% 50% 50%; }
+  100% { transform: translate(0, 0) scale(1);          border-radius: 58% 42% 38% 62% / 52% 48% 45% 55%; }
+}
+
+@keyframes blob-drift-3 {
+  0%   { transform: translate(0, 0) scale(1);          border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%; }
+  30%  { transform: translate(25vw, -25vh) scale(1.1);  border-radius: 38% 62% 58% 42% / 48% 52% 38% 62%; }
+  60%  { transform: translate(40vw, 30vh) scale(0.92);  border-radius: 62% 38% 42% 58% / 58% 42% 62% 38%; }
+  85%  { transform: translate(10vw, 50vh) scale(1.05);  border-radius: 45% 55% 55% 45% / 40% 60% 45% 55%; }
+  100% { transform: translate(0, 0) scale(1);          border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%; }
+}
+
+/* Ensure all content layers sit above the blobs */
+.log-header,
+.log-prescription,
+.log-date-row,
+.log-tabs-row,
+.log-carousel,
+.log-footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Header ──────────────────────────────────────────────────────────────── */
@@ -47,7 +138,7 @@
 .log-prescription {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 24px;
   padding: 10px 16px 12px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;

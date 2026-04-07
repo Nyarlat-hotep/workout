@@ -276,6 +276,11 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
 
   return (
     <div className="log-screen">
+      <div className="log-bg" aria-hidden="true">
+        <div className="log-blob log-blob--1" />
+        <div className="log-blob log-blob--2" />
+        <div className="log-blob log-blob--3" />
+      </div>
       <div className="log-header">
         <span className="log-title">{exercise.name}</span>
         <button className="log-close" onClick={onClose}><X size={18} strokeWidth={2} /></button>
