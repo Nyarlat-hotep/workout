@@ -447,9 +447,7 @@
   transition: all 0.2s, transform 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.log-footer-btn:active {
-  transform: scale(0.93);
-}
+
 
 /* Reset */
 .log-footer-btn--reset {

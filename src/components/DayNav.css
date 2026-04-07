@@ -26,9 +26,6 @@
   transition: transform 0.15s ease;
 }
 
-.day-nav-tab:active {
-  transform: scale(0.93);
-}
 
 .day-nav-icon {
   width: 64px;

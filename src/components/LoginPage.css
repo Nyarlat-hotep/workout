@@ -176,9 +176,7 @@
   box-shadow: 0 0 16px rgba(255, 110, 199, 0.25);
 }
 
-.login-btn:active {
-  transform: scale(0.97);
-}
+
 
 .login-btn:disabled {
   opacity: 0.5;
