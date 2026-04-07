@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { X, Play, Pause, RotateCcw, Check } from 'lucide-react'
+import { X, Play, Pause, RotateCcw, Check, ThumbsUp } from 'lucide-react'
 import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
@@ -56,7 +56,7 @@ function GlassSlider({ value, min, max, step, onChange }) {
   )
 }
 
-function SetCard({ setData, setIndex, repsConfig, formatReps, onChange, bodyweight }) {
+function SetCard({ setData, repsConfig, formatReps, onChange, bodyweight }) {
   return (
     <div className="log-set-card">
       <div className="log-sliders">
@@ -203,7 +203,15 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
     }))
   })
   const [activeSet, setActiveSet] = useState(0)
-  const [saving, setSaving] = useState(false)
+  // 'idle' | 'saving' | 'success'
+  const [completeState, setCompleteState] = useState('idle')
+  const completeTimerRef = useRef(null)
+  const [closing, setClosing] = useState(false)
+
+  function handleClose() {
+    setClosing(true)
+    setTimeout(() => onClose(), 550)
+  }
 
   // Stopwatch
   const [elapsed, setElapsed] = useState(0)
@@ -254,8 +262,8 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
   }
 
   async function handleComplete() {
-    if (!date) return
-    setSaving(true)
+    if (!date || completeState !== 'idle') return
+    setCompleteState('saving')
     const records = sets.map((s, i) => ({
       exercise_name: exercise.name,
       day_number: day.day,
@@ -266,16 +274,18 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
       logged_date: date,
     }))
     const { error } = await supabase.from('workout_logs').insert(records)
-    setSaving(false)
-    if (error) { alert('Failed to save. Please try again.'); return }
+    if (error) { alert('Failed to save. Please try again.'); setCompleteState('idle'); return }
     sessionStorage.removeItem(SESSION_KEY(exercise.name))
     markCompleted(exercise.name)
     onSaved()
-    onClose()
+    setCompleteState('success')
+    completeTimerRef.current = setTimeout(() => {
+      handleClose()
+    }, 2000)
   }
 
   return (
-    <div className="log-screen">
+    <div className={`log-screen${closing ? ' log-screen--closing' : ''}`}>
       <div className="log-bg" aria-hidden="true">
         <div className="log-blob log-blob--1" />
         <div className="log-blob log-blob--2" />
@@ -283,7 +293,7 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
       </div>
       <div className="log-header">
         <span className="log-title">{exercise.name}</span>
-        <button className="log-close" onClick={onClose}><X size={18} strokeWidth={2} /></button>
+        <button className="log-close" onClick={handleClose}><X size={18} strokeWidth={2} /></button>
       </div>
 
       <div className="log-prescription">
@@ -335,11 +345,16 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
         </button>
         <div className="log-stopwatch">{formatTime(elapsed)}</div>
         <button
-          className="log-footer-btn log-footer-btn--complete"
+          className={`log-footer-btn log-footer-btn--complete${completeState === 'success' ? ' success' : ''}`}
           onClick={handleComplete}
-          disabled={saving || !date}
+          disabled={completeState !== 'idle' || !date}
         >
-          <Check size={22} strokeWidth={2.5} />
+          <span className={`complete-icon complete-icon--check${completeState === 'success' ? ' exit' : ''}`}>
+            <Check size={22} strokeWidth={2.5} />
+          </span>
+          <span className={`complete-icon complete-icon--thumb${completeState === 'success' ? ' enter' : ''}`}>
+            <ThumbsUp size={22} strokeWidth={2.5} />
+          </span>
         </button>
       </div>
     </div>

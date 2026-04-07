@@ -9,6 +9,21 @@
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   overflow: hidden;
+  animation: log-slide-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.log-screen--closing {
+  animation: log-slide-out 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes log-slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes log-slide-out {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
 }
 
 /* ── Morphic background blobs ────────────────────────────────────────────── */
@@ -429,8 +444,11 @@
   justify-content: center;
   border-radius: var(--radius-btn);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s, transform 0.15s ease;
   -webkit-tap-highlight-color: transparent;
+}
+.log-footer-btn:active {
+  transform: scale(0.93);
 }
 
 /* Reset */
@@ -487,13 +505,57 @@
   background: rgba(255, 110, 199, 0.08);
   border: 1px solid var(--accent-dim);
   color: var(--accent);
+  position: relative;
+  overflow: hidden;
 }
 .log-footer-btn--complete:not(:disabled):hover,
 .log-footer-btn--complete:not(:disabled):active {
   background: rgba(255, 110, 199, 0.18);
   box-shadow: 0 0 16px rgba(255, 110, 199, 0.3);
 }
-.log-footer-btn--complete:disabled {
+.log-footer-btn--complete:disabled:not(.success) {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.log-footer-btn--complete.success {
+  background: rgba(0, 229, 204, 0.08);
+  border-color: rgba(0, 229, 204, 0.35);
+  color: var(--accent-2);
+}
+
+/* Icon swap animations */
+.log-footer-btn--complete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.complete-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+/* Check — default visible, slides up on success */
+.complete-icon--check {
+  transform: translateY(0);
+  opacity: 1;
+}
+.complete-icon--check.exit {
+  transform: translateY(-140%);
+  opacity: 0;
+}
+
+/* Thumb — starts below, slides up on success, exits down on revert */
+.complete-icon--thumb {
+  transform: translateY(140%);
+  opacity: 0;
+  color: var(--accent-2);
+}
+.complete-icon--thumb.enter {
+  transform: translateY(0);
+  opacity: 1;
 }
