@@ -273,8 +273,10 @@ function TimedView({ count, activeIndex, onActiveChange }) {
         onTransitionEnd={() => setAnimating(false)}
       >
         {Array.from({ length: count }, (_, i) => (
-          <div key={i} className="log-set-card timed-view">
-            <p className="timed-msg">{TIMED_MESSAGES[i % TIMED_MESSAGES.length]}</p>
+          <div key={i} className="log-set-card">
+            <div className="timed-view">
+              <p className="timed-msg">{TIMED_MESSAGES[i % TIMED_MESSAGES.length]}</p>
+            </div>
           </div>
         ))}
       </div>
