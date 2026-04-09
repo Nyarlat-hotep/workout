@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { X, Play, Pause, RotateCcw, Check, ThumbsUp } from 'lucide-react'
+import { X, Play, Pause, RotateCcw, Check, ThumbsUp, ChevronUp, ChevronDown } from 'lucide-react'
 import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
@@ -61,7 +61,10 @@ function SetCard({ setData, repsConfig, formatReps, onChange, bodyweight }) {
     <div className="log-set-card">
       <div className="log-sliders">
         <div className="log-slider-col">
-          <div className="log-slider-value">{formatReps(setData.reps)}</div>
+          <div className="log-slider-header">
+            <span className="log-slider-value">{formatReps(setData.reps)}</span>
+            <span className="log-slider-label">Reps</span>
+          </div>
           <GlassSlider
             value={setData.reps}
             min={repsConfig.min}
@@ -69,11 +72,21 @@ function SetCard({ setData, repsConfig, formatReps, onChange, bodyweight }) {
             step={1}
             onChange={v => onChange('reps', v)}
           />
-          <div className="log-slider-label">Reps</div>
+          <div className="log-slider-arrows">
+            <button className="log-arrow-btn" onClick={() => onChange('reps', Math.max(repsConfig.min, setData.reps - 1))}>
+              <ChevronDown size={22} strokeWidth={2} />
+            </button>
+            <button className="log-arrow-btn" onClick={() => onChange('reps', Math.min(repsConfig.max, setData.reps + 1))}>
+              <ChevronUp size={22} strokeWidth={2} />
+            </button>
+          </div>
         </div>
         {!bodyweight && (
           <div className="log-slider-col">
-            <div className="log-slider-value">{setData.weight} lbs</div>
+            <div className="log-slider-header">
+              <span className="log-slider-value">{setData.weight} lbs</span>
+              <span className="log-slider-label">Weight</span>
+            </div>
             <GlassSlider
               value={setData.weight}
               min={0}
@@ -81,7 +94,14 @@ function SetCard({ setData, repsConfig, formatReps, onChange, bodyweight }) {
               step={2.5}
               onChange={v => onChange('weight', v)}
             />
-            <div className="log-slider-label">Weight</div>
+            <div className="log-slider-arrows">
+              <button className="log-arrow-btn" onClick={() => onChange('weight', Math.max(0, setData.weight - 2.5))}>
+                <ChevronDown size={22} strokeWidth={2} />
+              </button>
+              <button className="log-arrow-btn" onClick={() => onChange('weight', Math.min(50, setData.weight + 2.5))}>
+                <ChevronUp size={22} strokeWidth={2} />
+              </button>
+            </div>
           </div>
         )}
       </div>
