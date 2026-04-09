@@ -237,10 +237,9 @@ export const WORKOUT = [
                 bodyweight: true,
               },
               {
-                name: 'Australian Pull-Up',
+                name: 'Chest-Supported DB Row',
                 sets: 3, reps: '8–12',
-                notes: 'Bar at waist height or use table edge · body straight · pull chest to bar · walk feet in to increase difficulty',
-                bodyweight: true,
+                notes: 'Face down on incline bench · both arms · elbows flare back · squeeze lats hard at top · no momentum',
               },
             ],
           },

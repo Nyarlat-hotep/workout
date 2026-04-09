@@ -194,10 +194,70 @@ const TIMED_MESSAGES = [
   'Stay present.\nDon\'t cut it short.',
 ]
 
-function TimedView({ setIndex }) {
+function TimedView({ count, activeIndex, onActiveChange }) {
+  const containerRef = useRef()
+  const swipe = useRef(null)
+  const [dragOffset, setDragOffset] = useState(0)
+  const [animating, setAnimating] = useState(false)
+
+  function onTouchStart(e) {
+    swipe.current = { startX: e.touches[0].clientX, startTime: Date.now() }
+    setAnimating(false)
+    setDragOffset(0)
+  }
+
+  function onTouchMove(e) {
+    if (!swipe.current) return
+    const dx = e.touches[0].clientX - swipe.current.startX
+    const atStart = activeIndex === 0 && dx > 0
+    const atEnd = activeIndex === count - 1 && dx < 0
+    setDragOffset(atStart || atEnd ? dx * 0.18 : dx)
+  }
+
+  function onTouchEnd() {
+    if (!swipe.current) return
+    const elapsed = Date.now() - swipe.current.startTime
+    const velocity = dragOffset / elapsed
+    const width = containerRef.current?.clientWidth ?? 375
+    const threshold = width * 0.28
+
+    let next = activeIndex
+    if (dragOffset < -threshold || velocity < -0.4) next = Math.min(count - 1, activeIndex + 1)
+    else if (dragOffset > threshold || velocity > 0.4) next = Math.max(0, activeIndex - 1)
+
+    swipe.current = null
+    setDragOffset(0)
+    setAnimating(true)
+    onActiveChange(next)
+  }
+
+  const width = containerRef.current?.clientWidth ?? 0
+  const baseTranslate = -activeIndex * 100
+  const dragPercent = width ? (dragOffset / width) * 100 : 0
+  const translateX = baseTranslate + dragPercent
+
   return (
-    <div className="timed-view">
-      <p className="timed-msg">{TIMED_MESSAGES[setIndex % TIMED_MESSAGES.length]}</p>
+    <div
+      ref={containerRef}
+      className="log-carousel"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      <div
+        className="log-carousel-track"
+        style={{
+          transform: `translateX(${translateX}%)`,
+          transition: animating ? 'transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+        }}
+        onTransitionEnd={() => setAnimating(false)}
+      >
+        {Array.from({ length: count }, (_, i) => (
+          <div key={i} className="log-set-card timed-view">
+            <p className="timed-msg">{TIMED_MESSAGES[i % TIMED_MESSAGES.length]}</p>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
@@ -335,7 +395,7 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
       </div>
 
       {isTimed
-        ? <TimedView setIndex={activeSet} />
+        ? <TimedView count={sets.length} activeIndex={activeSet} onActiveChange={setActiveSet} />
         : <SetCarousel
             sets={sets}
             activeIndex={activeSet}
