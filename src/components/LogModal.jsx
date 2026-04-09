@@ -186,11 +186,28 @@ function SetCarousel({ sets, activeIndex, onActiveChange, repsConfig, formatReps
   )
 }
 
+// ── Timed exercise view ───────────────────────────────────────────────────────
+const TIMED_MESSAGES = [
+  'Hold steady.\nBreathe through it.',
+  'Stillness is\nthe work.',
+  'Every second\ncounts.',
+  'Stay present.\nDon\'t cut it short.',
+]
+
+function TimedView({ setIndex }) {
+  return (
+    <div className="timed-view">
+      <p className="timed-msg">{TIMED_MESSAGES[setIndex % TIMED_MESSAGES.length]}</p>
+    </div>
+  )
+}
+
 // ── Main modal ────────────────────────────────────────────────────────────────
 const SESSION_KEY = (name) => `log_progress_${name}`
 
 export default function LogModal({ exercise, day, onClose, onSaved }) {
   const repsConfig = parseRepsConfig(exercise.reps)
+  const isTimed = repsConfig.unit === 'sec'
   const [date, setDate] = useState(today())
   const [sets, setSets] = useState(() => {
     try {
@@ -317,17 +334,20 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
         />
       </div>
 
-      <SetCarousel
-        sets={sets}
-        activeIndex={activeSet}
-        onActiveChange={setActiveSet}
-        repsConfig={repsConfig}
-        formatReps={formatReps}
-        bodyweight={exercise.bodyweight}
-        onChange={(i, field, value) =>
-          setSets(prev => prev.map((s, idx) => idx === i ? { ...s, [field]: value } : s))
-        }
-      />
+      {isTimed
+        ? <TimedView setIndex={activeSet} />
+        : <SetCarousel
+            sets={sets}
+            activeIndex={activeSet}
+            onActiveChange={setActiveSet}
+            repsConfig={repsConfig}
+            formatReps={formatReps}
+            bodyweight={exercise.bodyweight}
+            onChange={(i, field, value) =>
+              setSets(prev => prev.map((s, idx) => idx === i ? { ...s, [field]: value } : s))
+            }
+          />
+      }
 
       <div className="log-footer">
         <button
