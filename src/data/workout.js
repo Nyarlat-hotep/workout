@@ -19,6 +19,7 @@ export const WORKOUT = [
                 name: 'Pike Push-Up',
                 sets: 3, reps: '6',
                 notes: '3 sec eccentric · hips high · elbows track back',
+                bodyweight: true,
               },
             ],
           },
@@ -41,6 +42,7 @@ export const WORKOUT = [
                 name: 'Dips',
                 sets: 3, reps: '12–15',
                 notes: 'Slight forward lean for chest bias · full lockout',
+                bodyweight: true,
               },
               {
                 name: 'DB Overhead Press',
@@ -58,11 +60,13 @@ export const WORKOUT = [
                 name: 'Shoulder CARs',
                 sets: 2, reps: '5/side',
                 notes: 'Slow full-range rotations · brace everything else',
+                bodyweight: true,
               },
               {
                 name: 'Wall Slide',
                 sets: 3, reps: '10',
                 notes: 'Back flat against wall · arms slide overhead',
+                bodyweight: true,
               },
               {
                 name: 'Doorway Pec Stretch',
@@ -112,6 +116,7 @@ export const WORKOUT = [
                 name: 'Close-Grip Push-Up',
                 sets: 3, reps: '15',
                 notes: 'Hands under chest · elbows stay tight to ribs',
+                bodyweight: true,
               },
               {
                 name: 'DB Skull Crusher',
@@ -129,6 +134,7 @@ export const WORKOUT = [
                 name: 'Shoulder CARs',
                 sets: 2, reps: '5/side',
                 notes: 'Slow full-range rotations · brace everything else',
+                bodyweight: true,
               },
               {
                 name: 'Chest-to-Wall Stretch',
@@ -213,6 +219,7 @@ export const WORKOUT = [
                 name: 'Thread the Needle',
                 sets: 2, reps: '8/side',
                 notes: 'On all-fours · reach under and rotate fully',
+                bodyweight: true,
               },
               {
                 name: 'Dead Hang',
@@ -284,6 +291,7 @@ export const WORKOUT = [
                 name: 'Cat-Cow',
                 sets: 2, reps: '10',
                 notes: 'On all-fours · slow inhale arch · exhale round · breathe',
+                bodyweight: true,
               },
               {
                 name: 'Dead Hang',
@@ -441,6 +449,7 @@ export const WORKOUT = [
                 name: 'Cossack Squat',
                 sets: 2, reps: '8/side',
                 notes: 'Wide stance · shift side to side · heel stays flat',
+                bodyweight: true,
               },
             ],
           },
