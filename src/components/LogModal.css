@@ -161,14 +161,199 @@
 
 /* ── Date row ────────────────────────────────────────────────────────────── */
 .log-date-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
+  z-index: 3;
+}
+
+.log-date-picker-wrap {
+  flex: 1;
+  min-width: 0;
 }
 
 .log-date-row .datepicker-input {
   font-size: 1rem;
   padding: 12px 14px;
+  border-radius: 25px;
+}
+
+/* ── "Last time" pill button ─────────────────────────────────────────────── */
+.log-prev-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 12px;
+  background: rgba(255, 110, 199, 0.06);
+  border: 1px solid rgba(255, 110, 199, 0.28);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+}
+
+.log-prev-btn:hover,
+.log-prev-btn:active {
+  background: rgba(255, 110, 199, 0.14);
+  border-color: rgba(255, 110, 199, 0.45);
+}
+
+[data-theme="light"] .log-prev-btn {
+  background: rgba(0, 229, 204, 0.06);
+  border-color: rgba(0, 229, 204, 0.32);
+  color: var(--accent-2);
+}
+[data-theme="light"] .log-prev-btn:hover,
+[data-theme="light"] .log-prev-btn:active {
+  background: rgba(0, 229, 204, 0.14);
+  border-color: rgba(0, 229, 204, 0.5);
+}
+
+/* ── Previous session bottom sheet ───────────────────────────────────────── */
+.prev-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.prev-sheet-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.prev-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-radius: 18px 18px 0 0;
+  padding: 8px 20px max(20px, env(safe-area-inset-bottom, 20px));
+  box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.4);
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  touch-action: pan-y;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.prev-sheet.open {
+  transform: translateY(0);
+}
+
+.prev-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 12px;
+}
+
+.prev-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.prev-sheet-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prev-sheet-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.prev-sheet-date {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+.prev-sheet-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+.prev-sheet-close:hover { color: var(--accent); }
+
+.prev-sheet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prev-sheet-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 110, 199, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.prev-sheet-set {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  width: 56px;
+}
+
+.prev-sheet-reps {
+  flex: 1;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+.prev-sheet-weight {
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+[data-theme="light"] .prev-sheet-row {
+  background: rgba(0, 229, 204, 0.04);
+}
+[data-theme="light"] .prev-sheet-weight {
+  color: var(--accent-2);
+}
+[data-theme="light"] .prev-sheet-date {
+  color: var(--accent-2);
 }
 
 /* ── Pill tab toggle ─────────────────────────────────────────────────────── */

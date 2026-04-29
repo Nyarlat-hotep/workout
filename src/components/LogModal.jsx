@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { X, Play, Pause, RotateCcw, Check, ThumbsUp, ChevronUp, ChevronDown } from 'lucide-react'
+import { X, Play, Pause, RotateCcw, Check, ThumbsUp, ChevronUp, ChevronDown, History } from 'lucide-react'
 import * as RadixSlider from '@radix-ui/react-slider'
 import { supabase } from '../lib/supabase'
 import DatePicker from './DatePicker'
@@ -8,6 +8,16 @@ import './LogModal.css'
 
 function today() {
   return new Date().toISOString().split('T')[0]
+}
+
+function formatShortDate(yyyymmdd) {
+  const [y, m, d] = yyyymmdd.split('-').map(Number)
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
+function formatLongDate(yyyymmdd) {
+  const [y, m, d] = yyyymmdd.split('-').map(Number)
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
 }
 
 function parseRepsConfig(repsStr) {
@@ -190,6 +200,71 @@ function TimedView({ count, activeIndex }) {
   )
 }
 
+// ── Previous session bottom sheet ─────────────────────────────────────────────
+function PreviousSessionSheet({ session, open, onClose }) {
+  const [dragY, setDragY] = useState(0)
+  const startYRef = useRef(null)
+  const draggingRef = useRef(false)
+
+  function handleTouchStart(e) {
+    startYRef.current = e.touches[0].clientY
+    draggingRef.current = true
+  }
+  function handleTouchMove(e) {
+    if (!draggingRef.current) return
+    const delta = e.touches[0].clientY - startYRef.current
+    if (delta > 0) setDragY(delta)
+  }
+  function handleTouchEnd() {
+    draggingRef.current = false
+    if (dragY > 80) onClose()
+    setDragY(0)
+  }
+
+  if (!session) return null
+
+  return (
+    <>
+      <div
+        className={`prev-sheet-backdrop${open ? ' open' : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className={`prev-sheet${open ? ' open' : ''}`}
+        style={dragY > 0 ? { transform: `translateY(${dragY}px)` } : undefined}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        role="dialog"
+        aria-label="Last session"
+      >
+        <div className="prev-sheet-handle" />
+        <div className="prev-sheet-header">
+          <div className="prev-sheet-title">
+            <span className="prev-sheet-eyebrow">Last time</span>
+            <span className="prev-sheet-date">{formatLongDate(session.date)}</span>
+          </div>
+          <button className="prev-sheet-close" onClick={onClose} aria-label="Close">
+            <X size={18} strokeWidth={2} />
+          </button>
+        </div>
+        <ul className="prev-sheet-list">
+          {session.sets.map((s, i) => (
+            <li key={i} className="prev-sheet-row">
+              <span className="prev-sheet-set">Set {s.set_number}</span>
+              <span className="prev-sheet-reps">{s.reps}</span>
+              {s.weight_lbs != null && (
+                <span className="prev-sheet-weight">{s.weight_lbs} lbs</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  )
+}
+
 // ── Main modal ────────────────────────────────────────────────────────────────
 const SESSION_KEY = (name) => `log_progress_${name}`
 
@@ -212,6 +287,29 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
   const [completeState, setCompleteState] = useState('idle')
   const completeTimerRef = useRef(null)
   const [closing, setClosing] = useState(false)
+  const [previousSession, setPreviousSession] = useState(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    async function load() {
+      const { data, error } = await supabase
+        .from('workout_logs')
+        .select('set_number, reps, weight_lbs, logged_date')
+        .eq('exercise_name', exercise.name)
+        .order('logged_date', { ascending: false })
+        .order('set_number', { ascending: true })
+        .limit(20)
+      if (cancelled || error || !data || data.length === 0) return
+      const latestDate = data[0].logged_date
+      const sets = data
+        .filter(r => r.logged_date === latestDate)
+        .sort((a, b) => a.set_number - b.set_number)
+      setPreviousSession({ date: latestDate, sets })
+    }
+    load()
+    return () => { cancelled = true }
+  }, [exercise.name])
 
   function handleClose() {
     setClosing(true)
@@ -311,7 +409,19 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
       </div>
 
       <div className="log-date-row">
-        <DatePicker value={date} onChange={setDate} />
+        <div className="log-date-picker-wrap">
+          <DatePicker value={date} onChange={setDate} />
+        </div>
+        {previousSession && (
+          <button
+            className="log-prev-btn"
+            onClick={() => setSheetOpen(true)}
+            aria-label="Show last session"
+          >
+            <History size={14} strokeWidth={2} />
+            <span>Last: {formatShortDate(previousSession.date)}</span>
+          </button>
+        )}
       </div>
 
       <div className="log-tabs-row">
@@ -364,6 +474,12 @@ export default function LogModal({ exercise, day, onClose, onSaved }) {
           </span>
         </button>
       </div>
+
+      <PreviousSessionSheet
+        session={previousSession}
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+      />
     </div>
   )
 }
