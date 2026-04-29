@@ -188,3 +188,22 @@
 .react-datepicker__triangle {
   display: none !important;
 }
+
+/* ── Mobile portal (centered modal overlay) ─────────────────────────────── */
+.react-datepicker__portal {
+  background: rgba(0, 0, 0, 0.62) !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 9999;
+}
+
+.react-datepicker__portal .datepicker-calendar {
+  width: min(360px, calc(100vw - 24px)) !important;
+  max-width: calc(100vw - 24px) !important;
+}
+
+.react-datepicker__portal .datepicker-calendar .react-datepicker__day-name,
+.react-datepicker__portal .datepicker-calendar .react-datepicker__day {
+  width: calc((min(360px, 100vw - 24px) - 1rem) / 7) !important;
+  line-height: calc((min(360px, 100vw - 24px) - 1rem) / 7) !important;
+}

@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react'
 import RDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './DatePicker.css'
 
 export default function DatePicker({ value, onChange }) {
   const date = value ? new Date(value + 'T00:00:00') : null
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 600px)')
+    const handler = (e) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   function handleChange(d) {
     if (!d) { onChange(''); return }
@@ -25,6 +36,7 @@ export default function DatePicker({ value, onChange }) {
       className="datepicker-input"
       calendarClassName="datepicker-calendar"
       wrapperClassName="datepicker-wrapper"
+      withPortal={isMobile}
     />
   )
 }
